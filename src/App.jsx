@@ -1291,32 +1291,32 @@ const LandingPage = ({ onEnter }) => {
       {/* Corner brand */}
       <div className="ra-landing-corner tl">
         <div style={{ color:'#C9A227', fontSize:'0.75rem', letterSpacing:'0.25em', marginBottom:'0.3rem' }}>
-          REPEAT · AI
+          HOPER · 希望者
         </div>
-        <div style={{ fontSize:'0.6rem', opacity:0.6 }}>封装手册 · Vol.001</div>
+        <div style={{ fontSize:'0.6rem', opacity:0.6 }}>文库 Vol.001 · 2025.05.05</div>
       </div>
-      <div className="ra-landing-corner tr">MMXXVI</div>
+      <div className="ra-landing-corner tr">MMXXV</div>
       <div className="ra-landing-corner br">
-        把一个道理 · 重复到身体里
+        240 分钟直播 · 22 万字逐字稿
       </div>
 
       {/* Phrases */}
       <p className={`ra-phrase ${phase === 1 ? 'show' : phase > 1 ? 'hide' : ''}`}>
-        你不缺道理
+        你的注意力，每天被切碎成 10 秒
       </p>
       <p className={`ra-phrase ${phase === 2 ? 'show' : phase > 2 ? 'hide' : ''}`}
          style={{ fontSize: 'clamp(0.9rem,1.8vw,1.3rem)', color: 'rgba(201,162,39,0.75)' }}>
-        你缺的，是把道理重复到身体里的能力
+        但你最值钱的东西，恰恰是它
       </p>
 
       {/* Two-door split (cinematic) */}
       {phase >= 3 && (
         <div className="ra-door-wrap">
           <div className={`ra-door left ${crackVisible ? 'open' : ''}`}>
-            <span className="ra-door-glyph-half">重</span>
+            <span className="ra-door-glyph-half">莽</span>
           </div>
           <div className={`ra-door right ${crackVisible ? 'open' : ''}`}>
-            <span className="ra-door-glyph-half">重</span>
+            <span className="ra-door-glyph-half">莽</span>
           </div>
           <div className={`ra-crack ${crackVisible ? 'show' : ''}`} />
         </div>
@@ -1327,17 +1327,21 @@ const LandingPage = ({ onEnter }) => {
         <div className="ra-hero-inner">
           <p style={{ color: 'rgba(201,162,39,0.5)', fontSize: '0.75rem',
                        letterSpacing: '0.4em', marginBottom: '1.5rem' }}>
-            REPEAT · AI · ENCAPSULATE
+            COMPOUND · ATTENTION · SOUL
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display',serif",
+          <h1 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
                         fontSize: 'clamp(2rem,5vw,4rem)', color: '#FAF8F3',
                         fontWeight: 400, letterSpacing: '0.05em',
                         textShadow: '0 0 40px rgba(201,162,39,0.3)', lineHeight: 1.3 }}>
-            重复 · AI · 封装
+            年轻人，就是要莽
           </h1>
-          <p style={{ color: 'rgba(250,248,243,0.5)', fontSize: 'clamp(0.8rem,1.4vw,1rem)',
-                       letterSpacing: '0.15em', marginTop: '1rem' }}>
-            把一个道理重复到身体里，它才会变成你的人生
+          <p style={{ color: 'rgba(201,162,39,0.7)', fontSize: 'clamp(0.95rem,1.6vw,1.1rem)',
+                       letterSpacing: '0.3em', marginTop: '1.2rem' }}>
+            复利 · 注意力 · 心力
+          </p>
+          <p style={{ color: 'rgba(250,248,243,0.45)', fontSize: 'clamp(0.78rem,1.2vw,0.9rem)',
+                       letterSpacing: '0.15em', marginTop: '0.8rem', fontStyle: 'italic' }}>
+            一场四小时的直播，做成一本可以反复翻阅的书
           </p>
         </div>
       </div>
@@ -1585,35 +1589,35 @@ const PrefacePage = ({ onNav }) => {
               style={{ left: d.left, animationDelay: d.delay, animationDuration: d.duration }} />
       ))}
 
-      <span className="ra-preface-glyph">序</span>
+      <span className="ra-preface-glyph">编</span>
 
       <div className="ra-preface-content">
         <PrefaceLine delay={200}>
-          <p className="ra-preface-eyebrow">PREFACE · 序</p>
+          <p className="ra-preface-eyebrow">PREFACE · 编者按</p>
         </PrefaceLine>
 
         <PrefaceLine delay={500}>
-          <h1 className="ra-preface-title">重复有万钧之力</h1>
+          <h1 className="ra-preface-title">关于这份文档</h1>
         </PrefaceLine>
 
-        {/* Mantra 1 */}
+        {/* Lead */}
         <PrefaceLine delay={1000} className="ra-preface-lead">
-          重复有万钧之力。
+          一场四小时的直播，<br/>做成一本可以反复翻阅的书。
         </PrefaceLine>
 
         <PrefaceLine delay={1900}>
           <p className="ra-preface-line">
-            要把一个道理，不停地<strong>重复</strong>，
-            直到长到你的<strong>血肉</strong>里面，
-            变成你的<strong>下意识</strong>，才叫你学会了它。
+            这不是摘要，也不是逐字稿，而是一份<strong>"直播平替稿"</strong>——
+            把树林 5 月 5 日整场直播的全部观点、案例、戳人时刻，按底层逻辑重新组织，
+            复原成一份"读它就等于看完直播"的完整文档。
           </p>
         </PrefaceLine>
 
         <PrefaceLine delay={2700}>
           <p className="ra-preface-line">
-            人下意识会想追逐更新的、更好的——殊不知，
-            这只是<strong>多巴胺的意志</strong>。
-            它只是想要更多的信息娱乐你。
+            原始素材是 <strong>22 万字、5500 行逐字稿</strong>。
+            这份整理稿做了三件事：按主题逻辑重排顺序、保留所有不可替代的原话和案例、
+            用引用与金句单页让你既能从头读完也能随时翻阅。
           </p>
         </PrefaceLine>
 
@@ -1623,37 +1627,42 @@ const PrefacePage = ({ onNav }) => {
 
         <PrefaceLine delay={3900}>
           <p className="ra-preface-line">
-            真的改变，来自于你的<strong>习惯</strong>——
-            是你的纹状体，是你的基底核，是一种<strong>自动化</strong>。
+            全文<strong>四篇十一章 + 附录</strong>，约 50 页。
+            如果你只读这份文档不看原直播，你会拿到 <strong>90%</strong> 树林想给你的东西。
           </p>
         </PrefaceLine>
 
         <PrefaceLine delay={4800}>
           <p className="ra-preface-line">
-            是在你最关键、最痛苦、最自我批判的时候，
-            <strong>它依旧出现</strong>，
-            拦住了你的堕落，斥退了你的旧反应。
+            剩下的 10%，是他在直播里那些只属于现场的、靠语气和情绪传递的部分——
+            那些没办法被任何文字复刻。
           </p>
         </PrefaceLine>
 
         <PrefaceLine delay={5700}>
-          <p className="ra-preface-line" style={{ textAlign: 'left' }}>
-            旧我新我，<strong>楚河汉界</strong>——
-            自此一刀两断。
+          <p className="ra-preface-line">
+            这场直播表面的题目是 <strong>"年轻人，就是要莽"</strong>。
+            但树林真正想说的可能是另一句话——他在结尾说的：
           </p>
         </PrefaceLine>
 
-        {/* Mantra 2 — the heartbeat */}
+        {/* The closing line that defines this whole book */}
         <PrefaceLine delay={6700} className="ra-preface-lead">
-          重复，重复，重复。
+          "改变世界不死，理想不灭，<br/>现在随便喊。"
         </PrefaceLine>
 
-        {/* Mantra 3 — the resting note */}
-        <PrefaceLine delay={7600} className="ra-preface-lead final">
-          改变的力量，寄居于此。
+        <PrefaceLine delay={7600}>
+          <p className="ra-preface-line">
+            这是一个 <strong>28 岁的人</strong>停更大半年之后的第一场直播。
+            他想把这半年沉默换来的所有东西，<strong>毫无保留地交给愿意听的人</strong>。
+          </p>
         </PrefaceLine>
 
-        <PrefaceLine delay={8800}>
+        <PrefaceLine delay={8400} className="ra-preface-lead final">
+          —— 整理者 · 2025
+        </PrefaceLine>
+
+        <PrefaceLine delay={9400}>
           <div className="ra-preface-enter">
             <button onClick={() => onNav('directory')}
                     style={{ background: 'transparent', border: '1px solid #C9A227',
@@ -1942,12 +1951,12 @@ const CommitmentCard = () => {
 const ChapterEntrance = ({ pageId, navKey }) => {
   // Only show for actual chapters
   const chapterMap = {
-    preface: { num: '序', label: 'PREFACE',        title: '重复有万钧之力' },
-    ch01:    { num: '01', label: 'CHAPTER ONE',    title: '为什么要重复' },
-    ch02:    { num: '02', label: 'CHAPTER TWO',    title: '如何重复' },
-    ch03:    { num: '03', label: 'CHAPTER THREE',  title: 'AI 世界观' },
-    ch04:    { num: '04', label: 'CHAPTER FOUR',   title: 'AI 使用方法' },
-    outro:   { num: '∞',  label: 'FINALE',         title: '把它重复到身体里' },
+    preface: { num: '序', label: 'PREFACE',     title: '编者按 · 关于这份文档' },
+    ch01:    { num: '壹', label: 'PART ONE',    title: '底层操作系统 · 注意力' },
+    ch02:    { num: '贰', label: 'PART TWO',    title: '身体的物理学' },
+    ch03:    { num: '叁', label: 'PART THREE',  title: '商业世界的真相' },
+    ch04:    { num: '肆', label: 'PART FOUR',   title: 'AI 时代与心力' },
+    outro:   { num: '∞',  label: 'APPENDIX',    title: '金句索引 · 后记' },
   };
   const meta = chapterMap[pageId];
   if (!meta) return null;
@@ -2072,13 +2081,13 @@ const BackToTop = ({ scrollEl, threshold = 400 }) => {
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 export const PAGE_ORDER = ['preface', 'directory', 'ch01', 'ch02', 'ch03', 'ch04', 'outro'];
 export const PAGE_META = {
-  preface:   { label: '序 · 万钧之力',     icon: <Feather    size={13} />, time: '2 min' },
-  directory: { label: '目录',              icon: <BookMarked size={13} />, time: '1 min' },
-  ch01:      { label: 'Ch01 · 为什么重复', icon: <Repeat    size={13} />, time: '6 min' },
-  ch02:      { label: 'Ch02 · 如何重复',   icon: <RotateCcw  size={13} />, time: '7 min' },
-  ch03:      { label: 'Ch03 · AI世界观',   icon: <Brain      size={13} />, time: '6 min' },
-  ch04:      { label: 'Ch04 · AI用法',     icon: <Cpu        size={13} />, time: '8 min' },
-  outro:     { label: '尾声 · 你的痕迹',   icon: <Star       size={13} />, time: '3 min' },
+  preface:   { label: '编者按',                icon: <Feather    size={13} />, time: '2 min' },
+  directory: { label: '目录',                  icon: <BookMarked size={13} />, time: '1 min' },
+  ch01:      { label: '壹 · 上篇 · 注意力',     icon: <Repeat     size={13} />, time: '9 min' },
+  ch02:      { label: '贰 · 中篇 · 身体',       icon: <RotateCcw  size={13} />, time: '11 min' },
+  ch03:      { label: '叁 · 下篇 · 商业',       icon: <Brain      size={13} />, time: '9 min' },
+  ch04:      { label: '肆 · 终篇 · AI 与心力',  icon: <Cpu        size={13} />, time: '10 min' },
+  outro:     { label: '金句索引 · 后记',        icon: <Star       size={13} />, time: '4 min' },
 };
 
 const Sidebar = ({ active, onNav }) => {
@@ -2089,10 +2098,10 @@ const Sidebar = ({ active, onNav }) => {
     <nav className="ra-sidebar">
       <div className="ra-sidebar-logo">
         <div style={{ color: '#C9A227', fontSize: '0.75rem', letterSpacing: '0.3em', marginBottom: '0.4rem' }}>
-          REPEAT · AI
+          HOPER · 希望者
         </div>
         <div style={{ color: 'rgba(250,248,243,0.3)', fontSize: '0.65rem', letterSpacing: '0.1em' }}>
-          封装手册 · Vol.001
+          文库 Vol.001 · 2025.05.05
         </div>
       </div>
 
@@ -2169,66 +2178,109 @@ const ChapterNav = ({ current, onNav }) => {
 
 // ── Directory ────────────────────────────────────────────────────────────────
 const DirectoryPage = ({ onNav }) => {
-  const chapters = [
-    { id: 'ch01', num: '01', color: '#8B6914',
-      title: '为什么要重复', sub: '你缺的不是新道理',
-      desc: '道理进入身体的五个阶段——从信息到气质，真正的蜕变发生在第几步？',
-      tags: ['五阶段模型', '信息→气质', '重复的本质'] },
-    { id: 'ch02', num: '02', color: '#6B4F12',
-      title: '如何重复', sub: '四种方式 · 原则即宪法',
-      desc: '物理重复、多维重复、实践重复、螺旋重复——以及为什么你的原则不能归零。',
-      tags: ['四种重复', '不归零', '原则宪法'] },
-    { id: 'ch03', num: '03', color: '#4A3A0A',
-      title: 'AI 世界观', sub: '"你是矿，还是矿工？"',
-      desc: '刷短视频你是矿，用AI你是矿工。AI时代三种能力的分野。',
-      tags: ['元提问', '品位', '封装'] },
-    { id: 'ch04', num: '04', color: '#2D2416',
-      title: 'AI 使用方法', sub: '从元提问到完整闭环',
-      desc: '六轮追问、工具分工、筛选重写、封装入库——一套可复制的工作流。',
-      tags: ['六轮追问', '工具分工', '封装入库'] },
+  const parts = [
+    { id: 'ch01', num: '壹', cn: '上篇', en: 'PART ONE', color: '#8B6914',
+      title: '底层操作系统', sub: '注意力如何被分配、消耗、聚焦',
+      desc: '在你想做任何事之前，先理解你的注意力是如何被分配、被消耗、被聚焦的。这是这场直播——也是这本书——的根。',
+      chapters: [
+        { n: '01', t: '复利的本质是注意力' },
+        { n: '02', t: '注意力的劫持与压强' },
+      ],
+      tags: ['复利', '压强公式', '虐恋三要素'] },
+    { id: 'ch02', num: '贰', cn: '中篇', en: 'PART TWO', color: '#6B4F12',
+      title: '身体的物理学', sub: '人首先是一台烧炭的机器',
+      desc: '一切赚钱、幸福、深度行动的能力，都建立在身体能量供给之上。能量先于认知，身体先于心智。',
+      chapters: [
+        { n: '03', t: '人是烧炭的机器' },
+        { n: '04', t: '高酮、多巴胺与攻击性' },
+        { n: '05', t: 'DMN 默认网络' },
+      ],
+      tags: ['ATP / 血糖', '60 分能量线', '深夜 EMO'] },
+    { id: 'ch03', num: '叁', cn: '下篇', en: 'PART THREE', color: '#4A3A0A',
+      title: '商业世界的真相', sub: '资本如何进化，你又被怎样剥削',
+      desc: '这个世界一直在剥削你——只是手法越来越精细。从你的土地，到你的劳动力，到你的注意力，到你未来的钱。',
+      chapters: [
+        { n: '06', t: '资本演进史：从地主到注意力' },
+        { n: '07', t: '杠杆思维与陌生人交易' },
+        { n: '08', t: '营销不邪恶' },
+      ],
+      tags: ['资本四阶段', '杠杆 × 陌生人', '营销中性化'] },
+    { id: 'ch04', num: '肆', cn: '终篇', en: 'PART FOUR', color: '#2D2416',
+      title: 'AI 时代与心力', sub: '智能将平价，护城河是审美与心力',
+      desc: '当智能即将平价，护城河是什么？审美、心力、诚意正心——以及一个 28 岁的人停更大半年之后想明白的所有事。',
+      chapters: [
+        { n: '09', t: 'AI 代差与审美护城河' },
+        { n: '10', t: '世界观→结果：八步循环链' },
+        { n: '11', t: '诚意正心：树林的回归与告白' },
+      ],
+      tags: ['AI 代差', '八步循环', '诚意正心'] },
   ];
   return (
     <section style={{ background: '#FAF8F3', padding: '5rem 3rem', minHeight: '100vh',
                        position: 'relative', overflow: 'hidden' }}>
-      <span className="ra-dir-glyph">复</span>
+      <span className="ra-dir-glyph">莽</span>
       <div style={{ maxWidth: 960, margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <p style={{ color: '#C9A227', fontSize: '0.75rem', letterSpacing: '0.4em', marginBottom: '1rem' }}>
           — TABLE OF CONTENTS —
         </p>
-        <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(2.2rem,4.5vw,3.2rem)',
+        <h2 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                      fontSize: 'clamp(2.2rem,4.5vw,3.2rem)',
                       color: '#2D2416', fontWeight: 400, marginBottom: '0.5rem' }}>
-          全书目录
+          四篇 · 十一章 · 一份附录
         </h2>
         <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem',
                      letterSpacing: '0.1em', marginBottom: '1.5rem' }}>
-          四章 · 约 26 分钟阅读 · 推荐顺序阅读
+          约 50 页 · 38 分钟阅读 · 推荐按顺序，可随时翻阅
         </p>
-        <div className="ra-quote" style={{ maxWidth: 600 }}>
-          把一个道理重复到身体里，它才会变成你的人生。<br />
-          把 AI 用到封装进工作流，它才会变成你的能力。
+        <div className="ra-quote" style={{ maxWidth: 640 }}>
+          如果你只读这份文档不看原直播，<br/>
+          你会拿到 90% 树林想给你的东西。
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(400px,1fr))',
                        gap: '1.5rem', marginTop: '3rem' }}>
-          {chapters.map(ch => (
-            <div key={ch.id} className="ra-card" onClick={() => onNav(ch.id)}
+          {parts.map(p => (
+            <div key={p.id} className="ra-card" onClick={() => onNav(p.id)}
                  style={{ padding: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between',
                              alignItems: 'flex-start', marginBottom: '1.2rem' }}>
-                <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '3.5rem',
-                                color: ch.color, opacity: 0.15, lineHeight: 1, fontWeight: 400 }}>
-                  {ch.num}
-                </span>
+                <div>
+                  <span style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                                  fontSize: '3.5rem',
+                                  color: p.color, opacity: 0.18, lineHeight: 1, fontWeight: 400 }}>
+                    {p.num}
+                  </span>
+                  <span style={{ display: 'block', color: '#C9A227', fontSize: '0.65rem',
+                                  letterSpacing: '0.3em', marginTop: '0.3rem' }}>
+                    {p.en} · {p.cn}
+                  </span>
+                </div>
                 <ArrowUpRight size={16} style={{ color: '#C9A227', marginTop: '0.5rem' }} />
               </div>
-              <h3 style={{ fontSize: '1.2rem', color: '#2D2416', fontWeight: 500,
-                            marginBottom: '0.3rem' }}>{ch.title}</h3>
+              <h3 style={{ fontSize: '1.25rem', color: '#2D2416', fontWeight: 500,
+                            marginBottom: '0.3rem' }}>{p.title}</h3>
               <p style={{ color: '#C9A227', fontSize: '0.85rem', letterSpacing: '0.1em',
-                           marginBottom: '1rem' }}>{ch.sub}</p>
-              <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.9rem',
-                           lineHeight: 1.8, marginBottom: '1.2rem' }}>{ch.desc}</p>
+                           marginBottom: '1rem', fontStyle: 'italic' }}>{p.sub}</p>
+              <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.88rem',
+                           lineHeight: 1.85, marginBottom: '1.2rem' }}>{p.desc}</p>
+              {/* Chapter list */}
+              <div style={{ marginBottom: '1.2rem', paddingTop: '1rem',
+                             borderTop: '1px dashed rgba(201,162,39,0.25)' }}>
+                {p.chapters.map(c => (
+                  <div key={c.n} style={{ display: 'flex', alignItems: 'baseline',
+                                             gap: '0.8rem', padding: '0.3rem 0',
+                                             color: 'rgba(45,36,22,0.7)', fontSize: '0.85rem' }}>
+                    <span style={{ color: '#C9A227', fontFamily: "'Playfair Display',serif",
+                                    fontSize: '0.78rem', fontWeight: 600,
+                                    width: '22px' }}>
+                      {c.n}
+                    </span>
+                    <span>{c.t}</span>
+                  </div>
+                ))}
+              </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                {ch.tags.map(t => <span key={t} className="ra-tag">{t}</span>)}
+                {p.tags.map(t => <span key={t} className="ra-tag">{t}</span>)}
               </div>
             </div>
           ))}
@@ -2238,29 +2290,8 @@ const DirectoryPage = ({ onNav }) => {
   );
 };
 
-// ── Chapter 01 ───────────────────────────────────────────────────────────────
+// ── Part I · 上篇 · 注意力 ────────────────────────────────────────────────────
 const Ch01Page = ({ onNav }) => {
-  const stageRef = useRef(null);
-  const [shown, setShown] = useState([]);
-  const stages = [
-    { n: '01', label: '信息', en: 'Information', depth: 1, desc: '你听到了这个道理，它进入你的认知层，但还只是一串文字。' },
-    { n: '02', label: '认同', en: 'Agreement',   depth: 2, desc: '你觉得有道理，内心产生共鸣——"说得对，就该这样。"' },
-    { n: '03', label: '执行', en: 'Action',       depth: 3, desc: '你开始尝试去做，一次或几次，但还不稳定。' },
-    { n: '04', label: '习惯', en: 'Habit',        depth: 4, desc: '你不需要提醒自己，这件事已经自动发生在生活里。' },
-    { n: '05', label: '气质', en: 'Character',    depth: 5, desc: '它成为你身体的一部分，别人能从你身上感受到它。' },
-  ];
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        stages.forEach((_, i) => setTimeout(() => setShown(p => [...p, i]), i * 200));
-        obs.disconnect();
-      }
-    }, { threshold: 0.2 });
-    if (stageRef.current) obs.observe(stageRef.current);
-    return () => obs.disconnect();
-  }, []);
-
   return (
     <section style={{ background: '#FAF8F3', minHeight: '100vh' }}>
       {/* Hero */}
@@ -2270,149 +2301,410 @@ const Ch01Page = ({ onNav }) => {
         <HeroDecoCh01 />
         <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.4em', marginBottom: '1.2rem' }}>
-            CHAPTER 01 / 04
+            PART I · 壹 / 肆
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(2rem,4vw,3.2rem)',
-                        color: '#2D2416', fontWeight: 400, marginBottom: '1rem', lineHeight: 1.3 }}>
-            为什么要重复
+          <h2 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                        fontSize: 'clamp(2rem,4vw,3.2rem)',
+                        color: '#2D2416', fontWeight: 400, marginBottom: '0.4rem', lineHeight: 1.3 }}>
+            底层操作系统
           </h2>
           <p style={{ fontSize: '1.2rem', color: '#8B6914', letterSpacing: '0.1em',
                        marginBottom: '2rem', fontStyle: 'italic' }}>
-            你缺的不是新道理
+            注意力如何被分配、消耗、聚焦
           </p>
           <div className="ra-quote" style={{ maxWidth: 620 }}>
-            这个世界并不缺道理。微信读书、公众号、播客、短视频——<br />
-            道理已经多到溢出来了。<br />
-            但大多数人的生活，依然没有因此改变。<br />
-            <strong style={{ color: '#2D2416' }}>原因只有一个：道理没有进入身体。</strong>
+            在你想做任何事之前，先理解你的注意力<br/>
+            是如何被分配、被消耗、被聚焦的。<br />
+            <strong style={{ color: '#2D2416' }}>这是这场直播——也是这本书——的根。</strong>
           </div>
         </div>
       </div>
 
-      {/* Stages */}
       <div style={{ padding: '4rem 3rem', maxWidth: 800, margin: '0 auto' }}>
-        <h3 id="ch01-stages" style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                      fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }}>
-          道理进入身体的五个阶段
-        </h3>
-        <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '2.5rem' }}>
-          绝大多数人停在第二阶段就满足了
-        </p>
-        <div ref={stageRef}>
-          {stages.map((s, i) => (
-            <div key={i} className={`ra-stage-item ${shown.includes(i) ? 'show' : ''}`}
-                 style={{ transitionDelay: `${i * 0.1}s` }}>
-              <div className="ra-stage-num">{s.n}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem', marginBottom: '0.4rem' }}>
-                  <span style={{ fontSize: '1.1rem', color: '#2D2416', fontWeight: 500 }}>{s.label}</span>
-                  <span style={{ fontSize: '0.7rem', color: '#C9A227', letterSpacing: '0.15em' }}>{s.en}</span>
-                  <span style={{ marginLeft: 'auto', fontSize: '0.65rem',
-                                   color: 'rgba(45,36,22,0.4)', letterSpacing: '0.1em' }}>
-                    深度 {s.depth}/5
-                  </span>
-                </div>
-                <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.92rem',
-                              lineHeight: 1.8, marginBottom: '0.5rem' }}>{s.desc}</p>
-                {/* Intensity bar */}
-                <div className="ra-stage-bar">
-                  {[1,2,3,4,5].map(n => (
-                    <div key={n} className={`ra-stage-bar-cell ${n <= s.depth ? 'fill' : ''}`} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        {/* The Gap — interactive demo of "意志的缝隙" */}
-        <div style={{ marginTop: '4rem' }}>
-          <h3 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                        fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }}
-              id="ch01-gap">
-            知道和做到之间，是意志的缝隙
+        {/* ════════════════════════════════════════════════════════════════ */}
+        {/* CHAPTER 1 · 复利的本质是注意力 */}
+        {/* ════════════════════════════════════════════════════════════════ */}
+        <div id="ch1-compound" style={{ scrollMarginTop: '40px' }}>
+          <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                       marginBottom: '0.6rem' }}>第 一 章 · CHAPTER ONE</p>
+          <h3 style={{ fontSize: '1.6rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginBottom: '0.5rem',
+                        fontFamily: "'Playfair Display','Noto Serif SC',serif" }}>
+            复利的本质是注意力
           </h3>
-          <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
-            大多数人卡在 <span style={{color:'#C9A227'}}>02 → 03</span> 这一步——从"认同"到"执行"。<br/>
-            道理已经听过、已经认同、甚至感动到流泪——但生活里就是没做。<br/>
-            这不是知识问题，是意志问题。
+          <p style={{ color: 'rgba(45,36,22,0.6)', fontSize: '0.9rem',
+                       fontStyle: 'italic', marginBottom: '2rem' }}>
+            "我大概在大半年时间里，刚刚摸到了'复利'这个词的门槛。"
           </p>
 
-          <WillpowerTest />
-        </div>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.4rem' }}>
+            你以前一定听过这个词。第八大奇迹。所有讲投资的人都在用它，所有讲成长的人都在引用它。
+            但你大概率没真正用过它——除了用它来吓唬自己。
+          </p>
 
-        <StagePicker stages={stages} />
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '2rem' }}>
+            这场直播一开场，树林给出了一个反转：<strong style={{color:'#2D2416'}}>复利不是钱滚钱，
+            它的本体是注意力</strong>——一份注意力的投入，能在多长时间维度里、被多少人接收到、产生多少回报。
+            这个定义把"复利"从一个金融术语翻译成了一件你每天都在做、却从来没用对的事。
+          </p>
 
-        {/* Key insight */}
-        <div style={{ marginTop: '3rem', padding: '2rem', background: '#2D2416', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', right: '1.5rem', top: '0.5rem', fontSize: '5rem',
-                         color: 'rgba(201,162,39,0.08)', fontWeight: 700, lineHeight: 1,
-                         fontFamily: "'Playfair Display',serif" }}>KEY</div>
-          <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em', marginBottom: '1rem' }}>核心洞察</p>
-          <InkReveal
-            as="div"
-            style={{ color: '#FAF8F3', fontSize: '1.05rem', lineHeight: 2 }}
-            lineStyle={{ marginBottom: '0.3rem' }}
-            delay={250}
-            lines={[
-              '"认同"之后停下来，是大多数人的陷阱。',
-              '收藏了、点赞了、转发了——',
-              '但那个道理，从来没有进入过你的行为。',
-              <span style={{ color: '#C9A227' }} key="hl">重复，才是从认同到气质之间唯一的桥。</span>,
-            ]}
-          />
-        </div>
-
-        <div style={{ marginTop: '3rem' }}>
-          <h3 style={{ fontSize: '1rem', color: '#2D2416', letterSpacing: '0.1em',
-                        fontWeight: 500, marginBottom: '1.5rem', scrollMarginTop: '40px' }} id="ch01-experience">你可能有过这些体验</h3>
-          {[
-            '读完一本书，三天后你只记得"这本书不错"',
-            '听到一个人生道理，当天感动得热泪盈眶，第二天原样生活',
-            '年初立了flag，年底发现一个都没实现',
-            '知道要早起，知道要运动，知道要专注——但就是没做到',
-          ].map((item, i) => (
-            <div key={i} style={{ display: 'flex', gap: '1rem', padding: '0.8rem 0',
-                                    borderBottom: '1px solid rgba(45,36,22,0.06)', alignItems: 'flex-start' }}>
-              <Circle size={6} style={{ color: '#C9A227', marginTop: '0.55rem', flexShrink: 0 }} />
-              <p style={{ color: 'rgba(45,36,22,0.7)', fontSize: '0.9rem', lineHeight: 1.7 }}>{item}</p>
-            </div>
-          ))}
+          {/* ── 锁在脑子里的认知不会复利 ── */}
+          <h4 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginTop: '2.5rem', marginBottom: '1rem' }}>
+            锁在脑子里的认知不会复利
+          </h4>
           <div className="ra-bigquote">
             <p className="ra-bigquote-text">
-              这不是意志力问题，<br />
-              这是<strong>方法论</strong>问题。
+              你的所有最厉害的东西<br/>
+              都在你的<strong>脑子里面</strong>，<br/>
+              你并没有公开给这个世界。<br/>
+              只有世界看到了，<br/>
+              世界才能给你<strong>定价</strong>。
             </p>
             <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
                          letterSpacing: '0.2em', marginTop: '1.5rem',
                          fontStyle: 'italic' }}>
-              — 你需要的不是更多道理，而是一套让道理落地的系统
+              — 树林
+            </p>
+          </div>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginTop: '1.5rem' }}>
+            树林说他大半年里每天写一万字以上，但全部锁在备忘录里没发出去——所以他没增加任何粉丝。
+            他用这件事戳的不是"应该多发朋友圈"这种鸡汤，是一个更狠的真相：
+            <strong style={{color:'#2D2416'}}>没有被外界看到的认知，无法被定价</strong>。
+            它不进入复利循环，它只是消耗。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginTop: '1rem' }}>
+            这就是为什么很多"很有想法"的人赚不到钱。不是认知不够——是认知没有变成可被外界看到、
+            可被定价的资产。这一步叫<strong style={{color:'#C9A227'}}>"封装"</strong>。
+            封装能力比认知本身更稀缺。
+          </p>
+
+          {/* ── 急切就是不复利 ── */}
+          <h4 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginTop: '2.5rem', marginBottom: '1rem' }}>
+            急切就是不复利
+          </h4>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1rem' }}>
+            你白天和心仪的人聊得很好。互道晚安之后，他上了王者荣耀，你打开网易云开始云起来。
+            多巴胺褪去，血清素不足，刚好今天又没晒太阳。你睡不着，抓心挠肝，发出"你喜不喜欢我"。
+            又怕加豪赶紧补一大段。第二天对方睡醒一看：十几条消息。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1rem' }}>
+            原本你们这段关系可能有三四年的可能。前面已经聊了两个月，临门一脚都暧昧了。
+            但你的<strong style={{color:'#2D2416'}}>急切</strong>——这种当下立马就要结果、被注意力劫持的行为——
+            让对方瞬间下头。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '2rem' }}>
+            这个例子的杀伤力在于：你能立刻代入，每个人都做过。它真正的含义不是"恋爱要慢"，
+            是<strong style={{color:'#C9A227'}}>急切就是不复利</strong>——
+            你把未来几年可能的相遇，换成了当下一晚上的确定性。
+          </p>
+
+          {/* ── 复利的结构 ── */}
+          <h4 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginTop: '2.5rem', marginBottom: '1rem' }}>
+            什么是真正的复利
+          </h4>
+          <div style={{ background: '#fff', border: '1px solid rgba(201,162,39,0.3)',
+                          padding: '2rem', position: 'relative', marginBottom: '1.5rem' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '0.8rem' }}>复利的结构</p>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                         color: '#2D2416', fontSize: 'clamp(1.4rem,2.5vw,1.9rem)',
+                         letterSpacing: '0.05em', lineHeight: 1.6, marginBottom: '1.2rem' }}>
+              <strong style={{color:'#C9A227'}}>1 份注意力 → N 份回流</strong>
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.7)', fontSize: '0.92rem',
+                         lineHeight: 1.95, fontStyle: 'italic' }}>
+              "我用我的现在的直播服务了七八千人——我用一份时间换了你们四千份的注意力，
+              那我就会越来越有钱。"
+            </p>
+          </div>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1rem' }}>
+            同样是一份时间——你拿去刷短视频，复利系数是<strong style={{color:'#c0392b'}}>负的</strong>；
+            你拿去和朋友吃饭，复利系数<strong>接近 1</strong>；你拿去写一篇能发出去的文档，
+            复利系数<strong style={{color:'#C9A227'}}>可以是几百倍</strong>；
+            你拿去做一个能反复销售的产品，复利系数<strong style={{color:'#C9A227'}}>可以是几千几万倍</strong>。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '2rem' }}>
+            分水岭在于：这一份注意力的产出，<strong>能不能被外界看到、能不能被多次接收、能不能在未来持续回报</strong>。
+            三个能，就是复利；三个不能，就只是消耗。
+          </p>
+
+          {/* 复利可视化器 — 配合"1 份注意力 → N 份回流" */}
+          <CompoundVisualizer />
+
+          {/* 本章收束 */}
+          <div style={{ marginTop: '3rem', padding: '1.8rem 2rem',
+                         background: '#2D2416', borderLeft: '3px solid #C9A227' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '0.8rem' }}>本章收束</p>
+            <p style={{ color: '#FAF8F3', fontSize: '1rem', lineHeight: 1.95 }}>
+              复利不是钱滚钱，是注意力的产出能被多少人接收、能持续多久。<br/>
+              <span style={{color:'#C9A227'}}>你赚不到钱，是因为你最厉害的东西，从未走出你的脑子。</span>
+            </p>
+          </div>
+        </div>
+
+        {/* ════════════════════════════════════════════════════════════════ */}
+        {/* PULL QUOTE 01 · 论短视频 */}
+        {/* ════════════════════════════════════════════════════════════════ */}
+        <div style={{ margin: '5rem 0', padding: '4rem 2rem',
+                       background: 'linear-gradient(135deg, #14100a 0%, #1a1208 100%)',
+                       textAlign: 'center', position: 'relative', overflow: 'hidden',
+                       borderTop: '1px solid rgba(201,162,39,0.3)',
+                       borderBottom: '1px solid rgba(201,162,39,0.3)' }}>
+          <div style={{ position: 'absolute', left: '1rem', top: '0.5rem',
+                         color: 'rgba(201,162,39,0.4)', fontSize: '0.65rem',
+                         letterSpacing: '0.3em' }}>PULL QUOTE · 01</div>
+          <div style={{ position: 'absolute', right: '1rem', bottom: '0.5rem',
+                         color: 'rgba(201,162,39,0.4)', fontSize: '0.65rem',
+                         letterSpacing: '0.3em' }}>论 短 视 频</div>
+          <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                       color: '#FAF8F3', fontSize: 'clamp(1.4rem, 3.2vw, 2.2rem)',
+                       lineHeight: 1.7, fontStyle: 'italic', maxWidth: 600, margin: '0 auto' }}>
+            如果从今天开始，<br/>
+            我<strong style={{color:'#C9A227', fontStyle:'normal'}}>一分钟打你一次</strong>。<br/>
+            无论你做什么——<br/>
+            你这辈子还能有<br/>什么<strong style={{color:'#C9A227', fontStyle:'normal'}}>出息</strong>？
+          </p>
+          <p style={{ color: 'rgba(201,162,39,0.7)', fontSize: '0.8rem',
+                       letterSpacing: '0.4em', marginTop: '2rem' }}>
+            — 树 林
+          </p>
+        </div>
+
+        {/* ════════════════════════════════════════════════════════════════ */}
+        {/* CHAPTER 2 · 注意力的劫持与压强 */}
+        {/* ════════════════════════════════════════════════════════════════ */}
+        <div id="ch2-attention" style={{ scrollMarginTop: '40px' }}>
+          <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                       marginBottom: '0.6rem' }}>第 二 章 · CHAPTER TWO</p>
+          <h3 style={{ fontSize: '1.6rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginBottom: '0.5rem',
+                        fontFamily: "'Playfair Display','Noto Serif SC',serif" }}>
+            注意力的劫持与压强
+          </h3>
+          <p style={{ color: 'rgba(45,36,22,0.6)', fontSize: '0.9rem',
+                       fontStyle: 'italic', marginBottom: '2rem' }}>
+            "瘾的本质是什么？瘾的本质是——不可撤销的注意力。"
+          </p>
+
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '2rem' }}>
+            上一章讲了复利的本体是注意力。这一章讲两件事：<strong>你的注意力正在被怎样劫持，
+            以及抢回来之后该怎么用。</strong>
+          </p>
+
+          {/* ── 三重劫持 ── */}
+          <h4 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginTop: '2.5rem', marginBottom: '1rem' }}>
+            三重劫持
+          </h4>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.4rem' }}>
+            劫持有三种形态。<strong>第一种是切碎。</strong>
+            树林讲短视频，没有用任何"碎片化阅读不好"这种空话。他直接抛出一个让人脊背发凉的画面——
+            如果有人每分钟打断你一次、连续一整天，你能做成什么事？哪怕做手艺活也不行，连性体验都会变得糟糕。
+            但短视频做的就是这件事，而且更狠：不是 1 分钟打断一次，是
+            <strong style={{color:'#c0392b'}}> 20 秒、10 秒打断一次</strong>。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.4rem' }}>
+            这件事最深的代价不是浪费当下时间，是它在
+            <strong style={{color:'#2D2416'}}>系统性摧毁你做"长动作"的能力</strong>。
+            一篇一万字的文章至少需要 20 个小时连续投入。10 秒打断一次的大脑，再也聚不回来。
+            而所有真正能赚到钱的事——写一篇能传播的长文、做一个可卖的产品、谈成一个大客户——都是长动作。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.4rem' }}>
+            <strong>第二种劫持是情绪。</strong>同样是刷手机：搞笑段子是当下愉悦、消费完就结束；
+            但"年轻人没希望了""老登抢走了你们的机会"这类内容，会在你未来 3 到 4 个小时里持续压低自我评价。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.5rem' }}>
+            <strong>第三种是关系，也就是虐恋。</strong>三个特征同时出现就是它：
+          </p>
+          <div style={{ background: 'linear-gradient(135deg, #fdf0ed 0%, #fdf8e8 100%)',
+                          border: '1px solid rgba(192,57,43,0.3)',
+                          padding: '1.8rem 2rem', marginBottom: '1.5rem' }}>
+            <p style={{ color: '#c0392b', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '0.8rem' }}>虐恋三要素</p>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                         color: '#2D2416', fontSize: 'clamp(1.2rem,2.2vw,1.6rem)',
+                         lineHeight: 1.6, marginBottom: '1rem' }}>
+              <strong style={{color:'#c0392b'}}>高性吸引</strong> +
+              <strong style={{color:'#c0392b'}}> 高情绪波动</strong> +
+              <strong style={{color:'#c0392b'}}> 高需求感</strong>
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.75)', fontSize: '0.88rem',
+                         lineHeight: 1.9, fontStyle: 'italic' }}>
+              性吸引让你一见面所有问题都解决；高需求感让你一分开就焦虑恐慌；
+              情绪波动让你的多巴胺剧烈起伏。三件加在一起就是上瘾。
+            </p>
+          </div>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.5rem' }}>
+            这种关系最可怕的地方不是过程多痛苦，是它在
+            <strong style={{color:'#c0392b'}}>分手之后的几个月、甚至几百天里</strong>，
+            每隔一段时间还来吸走你一次。一段虐恋的真实代价不是它存在的两个月，
+            是它在你余下未来 100 天、200 天、500 天里的每一次反刍。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '2rem' }}>
+            而好的爱情是反过来的：
+          </p>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              好的爱情会让你<strong>打开和开放</strong>——<br/>
+              不会让你的思维收缩，<br/>
+              不会让你的行动收缩，<br/>
+              也不会让你的情绪收缩。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论好的关系
             </p>
           </div>
 
-          <ActionCard
-            id="ch01"
-            title="先写下一句话"
-            prompts={[
-              '读到这里，先不用急着改变全部生活。只做一件事：',
-              '挑一句你早就知道、但一直没有真正做到的道理。带着它，进入下一部分。',
-            ]}
-            chipsLabel="挑一个最戳你的（可多选）"
-            chips={[
-              '身体第一',
-              '注意力最重要',
-              '人生需要复利',
-              '不要反复归零',
-              '完成胜过完美',
-              '少即是多',
-              '深度比速度重要',
-              '长期主义',
-              '先做最小版本',
-              '不要消耗自己',
-            ]}
-            placeholder="或者写下你自己的那一句……"
-          />
+          {/* ── 压强公式 ── */}
+          <h4 id="ch2-pressure" style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginTop: '3rem', marginBottom: '1rem',
+                        scrollMarginTop: '40px' }}>
+            压强公式 · P = F / S
+          </h4>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.5rem' }}>
+            把注意力抢回来之后，下一个问题是：放在哪里。树林给了一个非常具象的画面——
+            一根细高跟为什么能把厚木板刺穿？体重没变，但接触面积小到像一根针，压强就大到能穿透。
+          </p>
+          <div style={{ background: '#fff', border: '1px solid rgba(201,162,39,0.3)',
+                          padding: '2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '1rem' }}>压强公式</p>
+            <p style={{ fontFamily: "'Playfair Display',serif",
+                         color: '#2D2416', fontSize: 'clamp(2rem,4vw,3rem)',
+                         letterSpacing: '0.1em', lineHeight: 1.4, fontStyle: 'italic' }}>
+              <strong style={{color:'#C9A227'}}>P</strong> ={' '}
+              <strong style={{color:'#C9A227'}}>F</strong> /{' '}
+              <strong style={{color:'#C9A227'}}>S</strong>
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.6)', fontSize: '0.85rem',
+                         marginTop: '1rem', lineHeight: 1.8 }}>
+              P = 注意力的产出　|　F = 注意力总量　|　S = 聚焦面积<br/>
+              <strong style={{color:'#2D2416'}}>F 不变，S 越小，P 越大</strong>
+            </p>
+          </div>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '2rem' }}>
+            大部分人想做的事很多——读书、健身、写作、副业、考研——一天分十件事做，每件事 10% 的注意力。
+            结果什么都做了一点，什么都没做出来。<strong style={{color:'#c0392b'}}>S 太大</strong>，
+            每件事的压强都不足以穿透那块木板。
+          </p>
+
+          {/* ── 焦虑与最小动作 ── */}
+          <h4 id="ch2-anxiety" style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                        fontWeight: 500, marginTop: '2.5rem', marginBottom: '1rem',
+                        scrollMarginTop: '40px' }}>
+            焦虑与最小动作
+          </h4>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.5rem' }}>
+            压强公式还能解释焦虑——这是树林在直播里最精彩的一段：
+          </p>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              焦虑的本质是<br/>
+              你的注意力放在了<strong>未来</strong>——<br/>
+              许多无限的未来。<br/>
+              你的身体只能在当下，<br/>
+              而你的脑子去到了那么远的地方。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.85rem',
+                         letterSpacing: '0.15em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — "我他妈到底在哪？我快凉了。"
+            </p>
+          </div>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginTop: '1.5rem', marginBottom: '1rem' }}>
+            用压强公式翻译就是：你的注意力被无限多个"未来时刻"分散了，
+            <strong style={{color:'#c0392b'}}>S 趋于无穷大，P 趋于零</strong>——
+            所以你浑身紧绷却什么都做不了。
+          </p>
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '1.5rem' }}>
+            解药不是"想开点"，是<strong style={{color:'#C9A227'}}>把动作缩到极小</strong>：
+          </p>
+          <div style={{ background: 'rgba(201,162,39,0.06)',
+                          border: '1px dashed rgba(201,162,39,0.4)',
+                          padding: '1.5rem 1.8rem', marginBottom: '2rem' }}>
+            <p style={{ color: 'rgba(45,36,22,0.85)', fontSize: '0.95rem',
+                         lineHeight: 2, fontStyle: 'italic' }}>
+              你做不了高考 → 那做语文。<br/>
+              做不了语文 → 那做作文。<br/>
+              做不了作文 → 那做开头两句话。<br/>
+              <span style={{color:'#C9A227', fontStyle:'normal'}}>
+                这种总能做了吧？开头两句话写完，你已经在写作文了。
+              </span>
+            </p>
+          </div>
+
+          {/* 意志测试 — 完美匹配"压强压在最小面积上"的主题 */}
+          <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+                       lineHeight: 1.95, marginBottom: '0.5rem' }}>
+            <strong>慢即是快</strong>——把同样的注意力压在更小的面积上。
+            连"按住 3 秒"都需要一整面注意力的聚焦：
+          </p>
+
+          <WillpowerTest />
+
+          {/* 本章收束 */}
+          <div style={{ marginTop: '3rem', padding: '1.8rem 2rem',
+                         background: '#2D2416', borderLeft: '3px solid #C9A227' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '0.8rem' }}>本章收束</p>
+            <p style={{ color: '#FAF8F3', fontSize: '1rem', lineHeight: 1.95 }}>
+              抢回注意力的关键，不是多做，是<strong style={{color:'#C9A227'}}>更少</strong>。<br/>
+              把一件事做到，胜过同时做十件事都没结果。
+            </p>
+          </div>
         </div>
+
+        {/* ── 行动卡 ── */}
+        <ActionCard
+          id="ch01"
+          title="挑出你今天的「最小动作」"
+          prompts={[
+            '焦虑的解药是把 S 缩到极小：你做不了高考，那就做开头两句话。',
+            '挑一个你今天就能完成的最小动作——它必须小到你不会再为它焦虑。',
+          ]}
+          chipsLabel="今天的最小动作（可多选）"
+          chips={[
+            '深蹲 5 个',
+            '写 100 字',
+            '发一条朋友圈',
+            '读 5 页书',
+            '出门走 10 分钟',
+            '关闭一个 app',
+            '回一个搁置的消息',
+            '把一件未完成的事推进 1 步',
+            '联系一个许久没联系的朋友',
+            '把桌面收拾干净',
+          ]}
+          placeholder="或者写下：你今天准备做的那件最小的事……"
+        />
 
         <ChapterNav current="ch01" onNav={onNav} />
       </div>
@@ -3098,21 +3390,12 @@ export default function App() {
   // Anchors per chapter
   const anchorsByPage = {
     ch01: [
-      { id: 'ch01-stages',     label: '五个阶段' },
-      { id: 'ch01-gap',        label: '意志的缝隙' },
-      { id: 'ch01-experience', label: '常见体验' },
+      { id: 'ch1-compound',  label: '01 · 复利的本质' },
+      { id: 'ch2-attention', label: '02 · 三重劫持' },
+      { id: 'ch2-pressure',  label: '02 · 压强公式' },
+      { id: 'ch2-anxiety',   label: '02 · 焦虑与最小动作' },
     ],
-    ch02: [
-      { id: 'ch02-methods', label: '四种方式' },
-    ],
-    ch03: [
-      { id: 'ch03-fates',     label: '三种命运' },
-      { id: 'ch03-abilities', label: '三种能力' },
-    ],
-    ch04: [
-      { id: 'ch04-workflow', label: '五步闭环' },
-      { id: 'ch04-tools',    label: '工具分工' },
-    ],
+    // ch02-ch04 anchors will be added in next iteration
   };
   const currentAnchors = anchorsByPage[activePage];
 
