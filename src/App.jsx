@@ -2712,129 +2712,467 @@ const Ch01Page = ({ onNav }) => {
   );
 };
 
-// ── Chapter 02 ───────────────────────────────────────────────────────────────
+
+// ──────────────────────────────────────────────────────────────────────────
+// Helpers for Part chapters
+// ──────────────────────────────────────────────────────────────────────────
+const PartHero = ({ partNum, partRoman, totalParts, title, subtitle, leadQuote, deco }) => (
+  <div className="ra-chapter-bg"
+       style={{ background: 'linear-gradient(135deg,#FAF8F3 0%,#F0EBE0 100%)',
+                 padding: '6rem 3rem 4rem', position: 'relative' }}>
+    {deco}
+    <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.4em', marginBottom: '1.2rem' }}>
+        PART {partRoman} · {partNum} / 肆
+      </p>
+      <h2 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                    fontSize: 'clamp(2rem,4vw,3.2rem)',
+                    color: '#2D2416', fontWeight: 400, marginBottom: '0.4rem', lineHeight: 1.3 }}>
+        {title}
+      </h2>
+      <p style={{ fontSize: '1.2rem', color: '#8B6914', letterSpacing: '0.1em',
+                   marginBottom: '2rem', fontStyle: 'italic' }}>
+        {subtitle}
+      </p>
+      {leadQuote && (
+        <div className="ra-quote" style={{ maxWidth: 620 }}>{leadQuote}</div>
+      )}
+    </div>
+  </div>
+);
+
+const ChapterIntro = ({ num, en, title, lead }) => (
+  <>
+    <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                 marginBottom: '0.6rem' }}>第 {num} 章 · CHAPTER {en}</p>
+    <h3 style={{ fontSize: '1.6rem', color: '#2D2416', letterSpacing: '0.05em',
+                  fontWeight: 500, marginBottom: '0.5rem',
+                  fontFamily: "'Playfair Display','Noto Serif SC',serif" }}>
+      {title}
+    </h3>
+    {lead && (
+      <p style={{ color: 'rgba(45,36,22,0.6)', fontSize: '0.9rem',
+                   fontStyle: 'italic', marginBottom: '2rem' }}>
+        {lead}
+      </p>
+    )}
+  </>
+);
+
+const SubH = ({ id, children }) => (
+  <h4 id={id} style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.05em',
+                fontWeight: 500, marginTop: '2.5rem', marginBottom: '1rem',
+                scrollMarginTop: '40px' }}>
+    {children}
+  </h4>
+);
+
+const Para = ({ children, style }) => (
+  <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.95rem',
+               lineHeight: 1.95, marginBottom: '1.4rem', ...style }}>
+    {children}
+  </p>
+);
+
+const ChapterClose = ({ children }) => (
+  <div style={{ marginTop: '3rem', padding: '1.8rem 2rem',
+                  background: '#2D2416', borderLeft: '3px solid #C9A227' }}>
+    <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                 marginBottom: '0.8rem' }}>本章收束</p>
+    <p style={{ color: '#FAF8F3', fontSize: '1rem', lineHeight: 1.95 }}>
+      {children}
+    </p>
+  </div>
+);
+
+const PullQuote = ({ num, label, children, attr }) => (
+  <div style={{ margin: '5rem 0', padding: '4rem 2rem',
+                  background: 'linear-gradient(135deg, #14100a 0%, #1a1208 100%)',
+                  textAlign: 'center', position: 'relative', overflow: 'hidden',
+                  borderTop: '1px solid rgba(201,162,39,0.3)',
+                  borderBottom: '1px solid rgba(201,162,39,0.3)' }}>
+    <div style={{ position: 'absolute', left: '1rem', top: '0.5rem',
+                   color: 'rgba(201,162,39,0.4)', fontSize: '0.65rem',
+                   letterSpacing: '0.3em' }}>PULL QUOTE · {num}</div>
+    <div style={{ position: 'absolute', right: '1rem', bottom: '0.5rem',
+                   color: 'rgba(201,162,39,0.4)', fontSize: '0.65rem',
+                   letterSpacing: '0.3em' }}>{label}</div>
+    <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                 color: '#FAF8F3', fontSize: 'clamp(1.4rem, 3.2vw, 2.2rem)',
+                 lineHeight: 1.7, fontStyle: 'italic', maxWidth: 600, margin: '0 auto' }}>
+      {children}
+    </p>
+    {attr && (
+      <p style={{ color: 'rgba(201,162,39,0.7)', fontSize: '0.8rem',
+                   letterSpacing: '0.4em', marginTop: '2rem' }}>
+        — {attr}
+      </p>
+    )}
+  </div>
+);
+
+// ── Part II · 中篇 · 身体 ─────────────────────────────────────────────────────
 const Ch02Page = ({ onNav }) => {
-  const [openMethod, setOpenMethod] = useState(null);
-  const methods = [
-    { n: '01', title: '物理重复', icon: <Layers size={18} />, sub: '最笨，最有效',
-      desc: '把道理写下来，放在你每天必看的地方。手机壁纸、桌面贴纸、日记开头——用物理存在代替记忆依赖。',
-      detail: '不要相信"我记得"。人的大脑天生遗忘。物理提醒是在跟遗忘对抗的最低成本手段。每天一次，重复21天，它会开始自动出现在你脑子里。' },
-    { n: '02', title: '多维重复', icon: <GitBranch size={18} />, sub: '用不同介质触碰同一道理',
-      desc: '同一个原则，用书读一遍，用播客听一遍，用写作说一遍，用对话讲一遍——每次都是不同层次的吸收。',
-      detail: '每一种介质都能激活大脑的不同区域。听到的是一维的，看到的是二维的，亲口说出来的是内化的。多维重复让道理从文字变成立体的认知网络。' },
-    { n: '03', title: '实践重复', icon: <Target size={18} />, sub: '在真实场景中触发',
-      desc: '为道理设置"触发器"：每次遇到某类情景，就主动用这个原则做决策。失败也是重复——它让你看到道理的边界。',
-      detail: '光想不够，必须在生活中创造使用场景。提前想好：当X发生时，我就用Y原则来应对。每一次使用都是一次神经元的强化，失败的使用尤其有价值。' },
-    { n: '04', title: '螺旋重复', icon: <RotateCcw size={18} />, sub: '每次重复都比上次深一层',
-      desc: '不是机械地背诵，而是带着新经验回来重新理解。同一个道理，二十岁读和三十岁读，感受完全不同。',
-      detail: '真正的重复不是循环，是螺旋上升。你带着更多的人生经验和失败教训回来审视这个道理，会发现它有更深的层次。每一次重读都是一次元认知升级。' },
-  ];
-
   return (
-    <section style={{ background: '#F5F2EB', minHeight: '100vh' }}>
-      <div className="ra-chapter-bg"
-           style={{ background: 'linear-gradient(135deg,#F5F2EB 0%,#EDE5D0 100%)',
-                     padding: '6rem 3rem 4rem', position: 'relative' }}>
-        <HeroDecoCh02 />
-        <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.4em', marginBottom: '1.2rem' }}>CHAPTER 02 / 04</p>
-          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(2rem,4vw,3.2rem)',
-                        color: '#2D2416', fontWeight: 400, marginBottom: '1rem', lineHeight: 1.3 }}>如何重复</h2>
-          <p style={{ fontSize: '1.2rem', color: '#8B6914', letterSpacing: '0.1em',
-                       marginBottom: '2rem', fontStyle: 'italic' }}>四种方式 · 原则即宪法 · 不归零</p>
-        </div>
-      </div>
+    <section style={{ background: '#FAF8F3', minHeight: '100vh' }}>
+      <PartHero partNum="贰" partRoman="II" title="身体的物理学"
+                subtitle="人首先是一台烧炭的机器"
+                deco={<HeroDecoCh02 />}
+                leadQuote={<>
+                  人首先是一台烧炭的机器，<br/>
+                  然后才是一台思考的机器。<br/>
+                  <strong style={{ color: '#2D2416' }}>一切赚钱、幸福、深度行动的能力，都建立在身体能量供给之上。</strong>
+                </>} />
 
-      <div style={{ padding: '4rem 3rem', maxWidth: 900, margin: '0 auto' }}>
-        <h3 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                      fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }} id="ch02-methods">四种重复方式</h3>
-        <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '2.5rem' }}>点击每张卡片展开详解</p>
+      <div style={{ padding: '4rem 3rem', maxWidth: 800, margin: '0 auto' }}>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(360px,1fr))',
-                       gap: '1.2rem', marginBottom: '4rem' }}>
-          {methods.map((m, i) => (
-            <div key={i} className="ra-method-card"
-                 onClick={() => setOpenMethod(openMethod === i ? null : i)}>
-              <div className="ra-method-num">{m.n}</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.8rem' }}>
-                <span style={{ color: '#C9A227' }}>{m.icon}</span>
-                <h4 style={{ fontSize: '1.05rem', color: '#2D2416', fontWeight: 500 }}>{m.title}</h4>
-              </div>
-              <p style={{ color: '#8B6914', fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '0.7rem' }}>{m.sub}</p>
-              <p style={{ color: 'rgba(45,36,22,0.7)', fontSize: '0.9rem', lineHeight: 1.8 }}>{m.desc}</p>
-              {openMethod === i && (
-                <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(201,162,39,0.2)' }}>
-                  <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.88rem', lineHeight: 1.9 }}>{m.detail}</p>
-                </div>
-              )}
-              <div style={{ marginTop: '0.8rem', display: 'flex', justifyContent: 'flex-end' }}>
-                {openMethod === i
-                  ? <ChevronUp size={14} style={{ color: '#C9A227' }} />
-                  : <ChevronDown size={14} style={{ color: 'rgba(201,162,39,0.5)' }} />}
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* CHAPTER 3 · 人是烧炭的机器 */}
+        <div id="ch3-burning" style={{ scrollMarginTop: '40px' }}>
+          <ChapterIntro num="三" en="THREE" title="人是烧炭的机器"
+                        lead='"人的本质是烧炭的机器。你的本质，其实你就是个烧炭的。"' />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
-          <div style={{ background: '#2D2416', padding: '2.5rem', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', right: '1rem', top: '0.5rem', fontSize: '4rem',
-                           color: 'rgba(201,162,39,0.07)', fontFamily: "'Playfair Display',serif" }}>原则</div>
-            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em', marginBottom: '1rem' }}>PRINCIPLE = CONSTITUTION</p>
-            <h3 style={{ color: '#FAF8F3', fontSize: '1.1rem', fontWeight: 500, marginBottom: '1rem' }}>原则即宪法</h3>
-            <p style={{ color: 'rgba(250,248,243,0.65)', fontSize: '0.9rem', lineHeight: 1.9 }}>
-              宪法的作用不是让你背诵它，而是让它在关键时刻约束你的行为。
-              原则也一样——它不是口号，是你在压力下的决策框架。
+          <Para>
+            所有的鸡汤都告诉你：要有梦想、要有意志、要有计划。但树林讲了一个更底层、也更冒犯的真相——
+            <strong style={{color:'#2D2416'}}>所有这些都建立在你这台机器还在烧炭。</strong>
+          </Para>
+          <Para>
+            葡萄糖、脂肪、蛋白质，三种"炭"被氧化释放化学能，转换成 ATP。高能磷酸键断裂，能量出来——
+            这才是你能思考、能行动、能"有执行力"的物质基础。这不是文学修辞，
+            <strong style={{color:'#C9A227'}}>它是字面意义上的：你以为你在思考，其实是你的细胞在烧炭。</strong>
+          </Para>
+
+          <SubH id="ch3-lottery">基因彩票</SubH>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              有钱人就是<strong>中基因彩票</strong>了——<br/>
+              他们的 ATP 先天就比更多人更多。<br/>
+              能量供给更多，<strong>烧不完的能量</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论 ATP
             </p>
           </div>
-          <div style={{ background: '#fff', padding: '2.5rem', border: '1px solid rgba(45,36,22,0.1)',
-                         position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', right: '1rem', top: '0.5rem', fontSize: '4rem',
-                           color: 'rgba(201,162,39,0.07)', fontFamily: "'Playfair Display',serif" }}>零</div>
-            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em', marginBottom: '1rem' }}>NO RESET = NO ZERO</p>
-            <h3 style={{ color: '#2D2416', fontSize: '1.1rem', fontWeight: 500, marginBottom: '1rem' }}>不归零</h3>
-            <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.9rem', lineHeight: 1.9 }}>
-              每次重新开始都是在清空账户。不归零的意思是：昨天的积累，今天还在。
-              哪怕跌倒，也要从现在的位置站起来，而不是退回原点。
+          <Para style={{ marginTop: '1.5rem' }}>
+            "性能量"不只是性欲。它驱动出来的是五件事：<strong>性欲、探索欲、攻击性、表达欲、食欲</strong>。
+            如果你长时间没有食欲、没有表达欲、没有探索欲，本质就是身体的消化和恢复系统出了问题——能量底子塌了。
+          </Para>
+          <Para>
+            这就解释了一个让所有人都不舒服的现象：<strong>为什么"努力"对某些人是天然的，对另一些人是反人性的？</strong>
+            不是意志问题，是底层供能系统的差异。
+            一个 ATP 充足的人，思考有惯性，行动有惯性，野心有惯性。一个 ATP 不足的人，光是从床上爬起来就要消耗大量意志力。
+          </Para>
+
+          <SubH id="ch3-bloodsugar">血糖与前额叶</SubH>
+          <Para>
+            这一章里树林反复强调一个被低估的杠杆——<strong>血糖</strong>。原因很物理：
+          </Para>
+          <div style={{ background: '#fff', border: '1px solid rgba(201,162,39,0.3)',
+                          padding: '1.5rem 2rem', marginBottom: '1.5rem' }}>
+            <p style={{ color: 'rgba(45,36,22,0.85)', fontSize: '0.95rem', lineHeight: 1.95 }}>
+              <strong style={{color:'#c0392b'}}>血糖一波动 → 前额叶下线</strong><br/>
+              前额叶是控制理性、决策、长期规划的；前额叶一死，<strong style={{color:'#c0392b'}}>杏仁核</strong>
+              （恐惧、焦虑、性欲的中心）就上线。所以一个血糖剧烈波动的人，会持续处在焦虑、易怒、决策能力差的状态。
+              他自己以为是"心态不好"——其实是身体在告诉他，能量底子塌了。
             </p>
           </div>
+          <Para>
+            更细的：<strong>饿、性欲、焦虑这三件事是一体的</strong>。你饿的时候性欲会增强、焦虑也会增强。
+            所以稳定饮食、平稳血糖，是稳定情绪的物理基础，不是心理建设。
+          </Para>
+
+          <SubH>身体决定大脑</SubH>
+          <Para>
+            这一章最反"心灵鸡汤"的命题是——你的所有思维、感受、决策能力，都建立在身体能量供给之上。
+            一个 ATP 不够、血糖剧烈波动、长期睡眠不足的人，无论看多少书、听多少道理，都很难有真正的执行力。
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              你不是因为<strong>想清楚了</strong>才去运动，<br/>
+              是因为你<strong>运动了</strong>才想得清楚。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 能量先于认知，身体先于心智
+            </p>
+          </div>
+          <ChapterClose>
+            所有"我应该……但我做不到"，<br/>
+            <span style={{color:'#C9A227'}}>多半不是意志问题——是炭不够。先把这台机器养护好。</span>
+          </ChapterClose>
         </div>
 
-        <CompoundVisualizer />
+        {/* CHAPTER 4 · 高酮、多巴胺与攻击性 */}
+        <div id="ch4-androgen" style={{ scrollMarginTop: '40px', marginTop: '4rem' }}>
+          <ChapterIntro num="四" en="FOUR" title="高酮、多巴胺与攻击性"
+                        lead='"当你的生命能量高了，你自然就外放外溢。"' />
 
-        <div className="ra-bigquote">
-          <p className="ra-bigquote-text">
-            重复的本质，是在用时间<br />
-            换取<strong>"不需要思考就能做对"</strong>的能力。
-          </p>
-          <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
-                       letterSpacing: '0.2em', marginTop: '1.5rem',
-                       fontStyle: 'italic' }}>
-            — 当正确的事变成条件反射，你就自由了
-          </p>
+          <Para>
+            上一章讲了能量从何而来。这一章讲：<strong>能量怎么变成对外的攻击性、表达欲、行动力</strong>——
+            以及为什么"内耗"的人本质上是能量不足。
+          </Para>
+
+          <SubH id="ch4-60line">60 分这条线</SubH>
+          <div style={{ background: '#fff', border: '1px solid rgba(201,162,39,0.3)',
+                          padding: '2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '1rem' }}>生命能量的 60 分线</p>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                         color: '#2D2416', fontSize: 'clamp(1.3rem,2.5vw,1.8rem)',
+                         letterSpacing: '0.05em', lineHeight: 1.6 }}>
+              60 分以下：<strong style={{color:'#c0392b'}}>内耗</strong>　|
+              60 分以上：<strong style={{color:'#C9A227'}}>外耗</strong>
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.88rem',
+                         lineHeight: 1.9, fontStyle: 'italic', marginTop: '1rem' }}>
+              "60 分以下，你这个人就会疯狂地内耗。<br/>
+              60 分以上，就会大量地外耗。如果你是 90 分，你就疯狂外耗。"
+            </p>
+          </div>
+          <Para>
+            60 分以下的人，是<strong style={{color:'#c0392b'}}>"审判席思维"</strong>——他不光自己审判自己，
+            还要请孔子苏格拉底来一起审判。任何他这一生学过的"正确道理"，都成了攻击他的武器。
+            能量低的时候，外界的一切都在否定他。
+          </Para>
+          <Para>
+            60 分以上的人是反过来的——<strong style={{color:'#C9A227'}}>"游乐场思维"</strong>。
+            树林举的例子是特朗普：你有问题，都是你们的问题，我美国赢了。这不是疯，是配得感拉满。
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              他把这个世界当游乐场，<br/>
+              他的能量太高了。<br/>
+              任何人的负面评价、诋毁、攻击，<br/>
+              都<strong>不进入他的自我评价</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论高能量者
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            同样一句"你不行"——能量低的人会把它收进自己反复反刍；能量高的人会把它弹回去，"你才不行"。
+            <strong style={{color:'#C9A227'}}>区别不在心态，在 ATP。</strong>
+          </Para>
+
+          <SubH>高酮与攻击性</SubH>
+          <Para>
+            具体到激素层面，树林讲到一个被忽视的关键——<strong>睾酮</strong>。
+            睾酮高的人攻击性高，会更不恐惧这个世界，敢冒犯他人。睾酮低的人——典型是日本"平成废宅"
+            ——肌肉萎缩、神经系统习惯了待在家里、惯性越来越大。
+          </Para>
+          <Para>
+            而提升睾酮最快的方式有两个：<strong style={{color:'#C9A227'}}>深蹲和跑步</strong>。
+            这就是为什么树林反复说："不敢卖东西？兄弟，你需要深蹲。""不敢发朋友圈？深蹲。"
+            ——不是开玩笑。这是把"勇气"翻译成了一个具体的、物理的、可干预的指标。
+          </Para>
+
+          <SubH id="ch4-five">五种在线</SubH>
+          <Para>当一个人能量真的高起来之后，会有五件事同时"在线"：</Para>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))',
+                          gap: '0.8rem', marginBottom: '1.5rem' }}>
+            {[
+              { n:'01', label:'性欲', desc:'不是猥琐，是身体的活力指标' },
+              { n:'02', label:'探索欲', desc:'总想去新的地方、试新的事' },
+              { n:'03', label:'攻击性', desc:'敢冒犯、敢拒绝、敢说不' },
+              { n:'04', label:'表达欲', desc:'有话要说、有作品要发' },
+              { n:'05', label:'食欲', desc:'能吃、消化好、对食物有兴趣' },
+            ].map(item => (
+              <div key={item.n}
+                    style={{ background: '#fff', border: '1px solid rgba(45,36,22,0.1)',
+                              padding: '1.2rem', borderTop: '3px solid #C9A227' }}>
+                <span style={{ color: '#C9A227', fontFamily: "'Playfair Display',serif",
+                                fontSize: '0.75rem', letterSpacing: '0.2em' }}>
+                  {item.n}
+                </span>
+                <p style={{ color: '#2D2416', fontSize: '1.05rem', fontWeight: 500,
+                              marginTop: '0.4rem', marginBottom: '0.3rem' }}>
+                  {item.label}
+                </p>
+                <p style={{ color: 'rgba(45,36,22,0.6)', fontSize: '0.82rem',
+                              lineHeight: 1.7 }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+          <Para>
+            这五件事中只要有一件长期不在线，就是身体在告诉你：<strong style={{color:'#c0392b'}}>能量塌了</strong>。
+          </Para>
+
+          <SubH>内耗是一种能量状态</SubH>
+          <Para>
+            所有"内耗"的真相，是当一个人能量不够外放的时候，
+            <strong>所有注意力会被迫往内：审视自己、批判自己、复盘过去、焦虑未来</strong>。
+            这不是性格，是注意力没有去向。
+          </Para>
+          <Para>
+            摆脱内耗的方式不是"想开点"——是把能量先升上来。
+            <strong style={{color:'#C9A227'}}>睡眠、饮食、运动、晒太阳</strong>，
+            这四件事会自动让你从内耗滑向外耗。
+          </Para>
+
+          <ChapterClose>
+            <span style={{color:'#C9A227'}}>能量高的人冒犯世界，能量低的人审判自己。</span><br/>
+            要外耗，先把炭烧起来。
+          </ChapterClose>
+        </div>
+
+        {/* PULL QUOTE 02 · 论默认网络 */}
+        <PullQuote num="02" label="论 默 认 网 络" attr="树林">
+          你为什么<strong style={{color:'#C9A227', fontStyle:'normal'}}>深夜 EMO</strong>？<br/>
+          因为白天能量耗尽了，<br/>
+          你的注意力<br/>
+          再也<strong style={{color:'#C9A227', fontStyle:'normal'}}>没地方可以去了</strong>。
+        </PullQuote>
+
+        {/* CHAPTER 5 · DMN 默认网络 */}
+        <div id="ch5-dmn" style={{ scrollMarginTop: '40px' }}>
+          <ChapterIntro num="五" en="FIVE" title="DMN 默认网络"
+                        lead='"晚上的 EMO 就是这样：白天能量耗尽，DMN 启动，开始 4 小时的自我攻击。"' />
+
+          <Para>
+            这是直播里最技术、也最戳人的一章。<strong>那些深夜里把你拽进去的痛苦，本质是大脑里一个叫
+            DMN 的网络在运行</strong>。理解它，你就能阻断它。
+          </Para>
+
+          <SubH>一个中性网络</SubH>
+          <Para>
+            <strong>DMN（默认网络）</strong>，是大脑在"漫游"状态下激活的神经回路。
+            它本身是中性的——很多有灵感的人、文思泉涌的人，启动的也是 DMN。
+            <strong style={{color:'#C9A227'}}>问题在于：它启动的时候你是什么能量状态。</strong>
+          </Para>
+          <Para>
+            能量高的时候，DMN 让你发散、有灵感、有创造；能量低的时候，DMN 让你坠入三件事——
+          </Para>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '0.8rem',
+                          marginBottom: '1.5rem' }}>
+            {[
+              { n:'1', label:'叙事', desc:'我是谁，我从哪来，我要到哪去。开始追问意义。' },
+              { n:'2', label:'比较', desc:'刷别人的朋友圈，看别人多厉害，回过头审视自己有多差。' },
+              { n:'3', label:'自我批判', desc:'我太菜了，我太烂了，我配不上，我不配活着。' },
+            ].map(item => (
+              <div key={item.n}
+                    style={{ background: '#fdf0ed', border: '1px solid rgba(192,57,43,0.2)',
+                              padding: '1.2rem' }}>
+                <span style={{ color: '#c0392b', fontFamily: "'Playfair Display',serif",
+                                fontSize: '0.75rem', letterSpacing: '0.2em' }}>
+                  STEP {item.n}
+                </span>
+                <p style={{ color: '#2D2416', fontSize: '1rem', fontWeight: 500,
+                              marginTop: '0.4rem', marginBottom: '0.3rem' }}>
+                  {item.label}
+                </p>
+                <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.82rem',
+                              lineHeight: 1.7 }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+          <Para>
+            这就是<strong style={{color:'#c0392b'}}>深夜 EMO 的三步曲</strong>。它有非常清晰的物理学原因：
+            白天太阳没晒够，血清素不足；晚上血清素无法转化为褪黑素，你睡不着。
+            睡不着的时候你刷短视频，音乐让你的情绪剧烈起伏，多巴胺被反复消耗。
+            等你想睡的时候，能量已经枯竭了，你没力气向外，注意力被迫向内。
+            <strong>DMN 启动。</strong>
+          </Para>
+
+          <SubH>启动后的两条路</SubH>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              我 DMN 一启动我就<strong>开始写东西</strong>，<br/>
+              写完我就立马发公众号。<br/><br/>
+              你 DMN 一启动开始<strong>骂自己</strong>——<br/>
+              我是废物，我是垃圾，我不配活着。<br/>
+              4 小时结束，<br/>
+              <strong>你的任何资产都没积累</strong>。<br/>
+              我 3-4 个小时，4 篇文章都写出来了。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论 DMN 启动后的两条路
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            这一段戳到的是：<strong>同样的时间、同样的 DMN 启动，能量高的人在产出资产，能量低的人在消耗自己。</strong>
+          </Para>
+
+          <SubH id="ch5-block">阻断 DMN 的方法</SubH>
+          <Para>
+            DMN 的可怕之处在于它会自我循环——你越自我攻击，能量越低；能量越低，越无法外耗；
+            越无法外耗，注意力越往内；越往内，攻击越深。<strong>这是一个螺旋下降。</strong>
+          </Para>
+          <Para>
+            阻断它的方法不是"想开点"——你越想越深。是<strong style={{color:'#C9A227'}}>动作</strong>。
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              你<strong>多想都没用</strong>——<br/>
+              因为你想也是在语言里面循环你自己。<br/>
+              你只有<strong>行动</strong>才能阻断。<br/>
+              就站起来做个<strong style={{color:'#C9A227', fontStyle:'normal'}}>深蹲</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            动作的物理意义是：它强行打断了你大脑当前的循环。
+            一个深蹲提升睾酮，让攻击性回升；一次跑步消耗多巴胺，让你重新有"奖赏待遇"；
+            一次写作，把内耗的能量转化为外耗的输出。
+          </Para>
+          <Para>
+            这就是为什么树林给所有 IP 营学员的硬规定是：
+            <strong style={{color:'#C9A227'}}>每天打卡、每天锻炼、每天输出</strong>。
+            不是为了产出本身，是为了不让你的 DMN 把你吃掉。
+          </Para>
+
+          <SubH>用 DMN 而不是被 DMN 用</SubH>
+          <Para>
+            树林讲了一个反向用法。他自己 DMN 启动的时候，会做四件事：
+            <strong>问自己今天要做什么、明天后天的计划、反思过去做对做错、立刻记录下来</strong>。
+            这是把同一个 DMN 网络从"自我攻击模式"切换到"规划反思模式"。
+          </Para>
+          <Para>
+            关键的差别是：他在反思的时候<strong style={{color:'#C9A227'}}>不批判自己</strong>。
+            "哪个事做错了，让我有什么损失，未来避免就好。"——而不是"我怎么这么烂"。
+            这不是情绪管理技巧，是一个人在自己面前的尊严。
+          </Para>
+
+          <ChapterClose>
+            深夜 EMO 不是性格——是 DMN 启动 + 能量耗尽。<br/>
+            <span style={{color:'#C9A227'}}>阻断它的不是想，是动。</span>
+          </ChapterClose>
         </div>
 
         <ActionCard
           id="ch02"
-          title="挑你的重复方式"
+          title="今晚 / 明天先做的一件「上能量」的事"
           prompts={[
-            '回到上一章那句话，决定你今天要怎么让它真的进入生活：',
-            '挑一个你最有可能做到的最小动作。',
+            '能量先于认知。摆脱内耗的不是想，是动。',
+            '挑一件你今晚 / 明天起就能做、能让你能量上来的事。',
           ]}
-          chipsLabel="今天我准备这样重复它（可多选）"
+          chipsLabel="一件能让你「炭烧起来」的事（可多选）"
           chips={[
-            '写在手机壁纸',
-            '写在桌面便签',
-            '贴在书桌前',
-            '放进每日打开的笔记',
-            '每天起床读一遍',
-            '睡前问自己一遍',
-            '用它做今天一个决定',
-            '在写作里用一次',
-            '在关系里用一次',
-            '7 天后回来检查',
+            '今晚 11 点前睡',
+            '明早晒 10 分钟太阳',
+            '深蹲 20 个',
+            '跑步 / 散步 30 分钟',
+            '吃一顿正经的早饭',
+            '断糖 1 天',
+            '把短视频 app 卸载',
+            '把社交软件设静音',
+            '今晚关掉手机网络',
+            'DMN 启动时先做 5 个深蹲再说',
           ]}
-          placeholder="或者写下你自己的具体做法……"
+          placeholder="或者写下你的具体做法……"
         />
 
         <ChapterNav current="ch02" onNav={onNav} />
@@ -2843,152 +3181,331 @@ const Ch02Page = ({ onNav }) => {
   );
 };
 
-// ── Chapter 03 ───────────────────────────────────────────────────────────────
+// ── Part III · 下篇 · 商业 ────────────────────────────────────────────────────
 const Ch03Page = ({ onNav }) => {
-  const [fate, setFate] = useState(null);
-  const fates = [
-    { label: '被替代', color: '#c0392b', bg: '#fdf0ed',
-      desc: '把AI当搜索引擎用——只问答案，不问背后的逻辑。你的工作被AI替代，因为你做的就是AI最擅长的：检索和复述。' },
-    { label: '被辅助', color: '#8B6914', bg: '#fdf8e8',
-      desc: '把AI当工具用——它帮你写文案、改代码、做PPT。效率提升了，但你的判断力没有成长。AI是你的助手，也是你的天花板。' },
-    { label: '成为矿工', color: '#2d7a2d', bg: '#edf8ed',
-      desc: '把AI当延伸用——你有问题意识，你有品位，你把AI的输出封装成自己的能力。AI是你的铲子，你挖出来的是属于自己的金子。' },
-  ];
-  const abilities = [
-    { icon: <Search size={20} />, title: '元提问', en: 'Meta-Questioning', tag: '最核心的能力',
-      desc: '不问"帮我写篇文章"，而是问"这个问题的本质是什么，我需要问什么问题才能得到真正有用的答案"。' },
-    { icon: <Star size={20} />, title: '品位', en: 'Taste & Judgment', tag: '无法被替代的能力',
-      desc: 'AI可以生成一百个答案，但你需要知道哪一个好。品位是筛选能力，是你对"好"的感知阈值。它来自大量阅读和独立思考，无法外包。' },
-    { icon: <Layers size={20} />, title: '封装', en: 'Encapsulation', tag: '让能力不归零',
-      desc: '把AI帮你完成的内容，转化成你自己的认知资产——整理进知识库，提炼成原则，融入工作流。不封装等于不积累。' },
-  ];
-
   return (
     <section style={{ background: '#FAF8F3', minHeight: '100vh' }}>
-      <div className="ra-chapter-bg"
-           style={{ background: 'linear-gradient(135deg,#FAF8F3 0%,#EEE8DC 100%)',
-                     padding: '6rem 3rem 4rem', position: 'relative' }}>
-        <HeroDecoCh03 />
-        <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.4em', marginBottom: '1.2rem' }}>CHAPTER 03 / 04</p>
-          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(2rem,4vw,3.2rem)',
-                        color: '#2D2416', fontWeight: 400, marginBottom: '1rem', lineHeight: 1.3 }}>AI 世界观</h2>
-          <p style={{ fontSize: '1.2rem', color: '#8B6914', letterSpacing: '0.05em',
-                       marginBottom: '2rem', fontStyle: 'italic' }}>"刷短视频你是矿，用 AI 你是矿工"</p>
-          <div style={{ background: '#2D2416', padding: '2rem 2.5rem', maxWidth: 600, borderLeft: '3px solid #C9A227' }}>
-            <InkReveal
-              as="div"
-              style={{ color: '#FAF8F3', fontSize: '1rem', lineHeight: 2 }}
-              lineStyle={{ marginBottom: '0.2rem' }}
-              delay={300}
-              lines={[
-                '短视频平台上，',
-                '你的注意力是原材料，被算法挖掘、打包、卖给广告主。',
-                <span style={{ color: '#C9A227', fontSize: '1.4rem',
-                                fontFamily: "'Playfair Display',serif",
-                                fontStyle: 'italic' }} key="a">你是矿。</span>,
-                <span key="sp" style={{ display:'block', height:'0.8rem' }} />,
-                '但如果你用 AI 来挖掘信息、提炼认知、封装工作流——',
-                <span style={{ color: '#C9A227', fontSize: '1.4rem',
-                                fontFamily: "'Playfair Display',serif",
-                                fontStyle: 'italic' }} key="b">你是矿工。</span>,
-              ]}
-            />
-          </div>
-        </div>
-      </div>
+      <PartHero partNum="叁" partRoman="III" title="商业世界的真相"
+                subtitle="资本如何进化，你又被怎样剥削"
+                deco={<HeroDecoCh03 />}
+                leadQuote={<>
+                  这个世界一直在剥削你——<strong style={{ color: '#2D2416' }}>只是手法越来越精细</strong>。<br/>
+                  从你的土地，到你的劳动力，<br/>
+                  到你的注意力，到你未来的钱。
+                </>} />
 
-      <div style={{ padding: '4rem 3rem', maxWidth: 900, margin: '0 auto' }}>
-        <h3 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                      fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }} id="ch03-fates">AI 回答的三种命运</h3>
-        <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '2rem' }}>你现在处于哪一种？</p>
-        <div className="ra-fate-row" style={{ marginBottom: '4rem' }}>
-          {fates.map((f, i) => (
-            <div key={i} className="ra-fate"
-                 style={{ borderTop: `3px solid ${f.color}` }}>
-              <div className="ra-fate-num">{String(i+1).padStart(2,'0')}</div>
-              <div>
-                <div style={{ width: 10, height: 10, borderRadius: '50%',
-                               background: f.color, marginBottom: '1.2rem',
-                               boxShadow: `0 0 10px ${f.color}` }} />
-                <h4 style={{ fontSize: '1.4rem', color: f.color, fontWeight: 500,
-                              marginBottom: '0.6rem', letterSpacing: '0.05em' }}>
-                  {f.label}
-                </h4>
-                <div className="ra-fate-hint">悬停展开</div>
-                <div className="ra-fate-desc">
-                  <p style={{ color: 'rgba(45,36,22,0.75)', fontSize: '0.9rem',
-                               lineHeight: 1.9, marginTop: '1rem' }}>
-                    {f.desc}
+      <div style={{ padding: '4rem 3rem', maxWidth: 800, margin: '0 auto' }}>
+
+        {/* CHAPTER 6 · 资本演进史 */}
+        <div id="ch6-capital" style={{ scrollMarginTop: '40px' }}>
+          <ChapterIntro num="六" en="SIX" title="资本演进史：从地主到注意力"
+                        lead='"第一阶段拿走你的土地。第四阶段——拿走你未来的钱。"' />
+
+          <Para>
+            这一章是树林整场直播里最有结构感的一段——他用四个时代讲清楚了
+            <strong>"剥削"这件事是怎样从粗暴变得精细</strong>。
+          </Para>
+
+          <SubH id="ch6-stages">四个阶段</SubH>
+          <div style={{ marginBottom: '2rem' }}>
+            {[
+              { n:'壹', en:'I', age:'地主阶级', what:'粮食剩余',
+                desc:'农民最开始是有地的。但有人不擅长积累，有多少吃多少。一遇荒年要借高利贷，利滚利还不上就拿田来抵。土地慢慢聚集到 1-5 个人手里。' },
+              { n:'贰', en:'II', age:'工厂主', what:'劳动剩余',
+                desc:'你工作 10 个小时，我给你 2 个小时的钱，剩下的 8 个小时是我的超额利润。同时我提供工具、场地、确定性。' },
+              { n:'叁', en:'III', age:'信息时代', what:'注意力',
+                desc:'你工作时间的剩余已经被剥完了。但他们发现你休息的时间还有大量注意力。于是有了短视频、有了广告、有了你下班还在刷的算法。' },
+              { n:'肆', en:'IV', age:'平台时代', what:'未来现金流',
+                desc:'更恐怖的是：今天的钱用完了，明天的钱也给我用了。每一个平台——阿里、字节、美团、滴滴——都有小额贷，利率 24%。"消费贷正常 3-4%，24% 就是抢你的钱。"' },
+            ].map((s, i) => (
+              <div key={i}
+                    style={{ display: 'flex', gap: '1.5rem', padding: '1.5rem 0',
+                              borderBottom: '1px dashed rgba(201,162,39,0.25)',
+                              alignItems: 'flex-start' }}>
+                <div style={{ flexShrink: 0, textAlign: 'center', minWidth: 70 }}>
+                  <div style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                                  fontSize: '2.4rem', color: '#C9A227',
+                                  fontWeight: 700, lineHeight: 1 }}>{s.n}</div>
+                  <div style={{ color: 'rgba(45,36,22,0.4)', fontSize: '0.65rem',
+                                  letterSpacing: '0.2em', marginTop: '0.3rem' }}>
+                    {s.en}
+                  </div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem',
+                                  marginBottom: '0.5rem' }}>
+                    <span style={{ fontSize: '1.1rem', color: '#2D2416', fontWeight: 500 }}>{s.age}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#C9A227',
+                                    letterSpacing: '0.15em', marginLeft: 'auto' }}>
+                      剥削 · {s.what}
+                    </span>
+                  </div>
+                  <p style={{ color: 'rgba(45,36,22,0.7)', fontSize: '0.9rem',
+                                lineHeight: 1.85 }}>
+                    {s.desc}
                   </p>
                 </div>
               </div>
-              <div style={{ marginTop: 'auto', paddingTop: '1.5rem',
-                             borderTop: `1px dashed ${f.color}33`,
-                             color: f.color, fontSize: '0.7rem',
-                             letterSpacing: '0.2em', opacity: 0.8 }}>
-                FATE / {String(i+1).padStart(2,'0')}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <SubH>现代人的处境</SubH>
+          <Para>把四个阶段叠在一起，你会发现现代年轻人的处境是：</Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              生产资料没有，<br/>
+              注意力萎缩 <strong>10 秒</strong>钟打断一次，<br/>
+              欠未来的钱欠一辈子，<br/>
+              每天都在焦虑怎么还钱。<br/>
+              <strong>凭什么翻身呢？</strong>
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论现代年轻人
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            这一段读完会让人沉默一会儿。它不是在说"这是平台的错"——树林在这里反而非常克制。
+            核心是：<strong style={{color:'#2D2416'}}>剥削的精细化是这个时代的常态。</strong>
+            不是有谁在害你，是整个系统天然地、自然选择地，越来越擅长拿走你最值钱的东西——
+            而你最值钱的东西，今天是<strong style={{color:'#C9A227'}}>注意力</strong>。
+          </Para>
+
+          <SubH>翻身的唯一路径</SubH>
+          <Para>
+            那怎么办？树林给的答案非常简单——<strong>从被剥削方变成剥削方</strong>。这不是道德问题，是结构问题。
+            在一个所有人都在抢注意力的时代，你要么做"刷别人"的人，要么做"被刷"的人。
+          </Para>
+          <Para>
+            而做"刷别人"的人最直接的方式，是<strong style={{color:'#C9A227'}}>封装内容、发出去、让陌生人看到</strong>。
+            这就是为什么树林反复讲"封装能力"——不是教你做自媒体，是教你从生态链底层往上爬一层。
+          </Para>
+
+          <ChapterClose>
+            历史在迭代剥削的精度。<br/>
+            <span style={{color:'#C9A227'}}>你今天最值钱的资产是注意力——别人都知道，只有你不在乎。</span>
+          </ChapterClose>
         </div>
 
-        <h3 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                      fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }} id="ch03-abilities">AI 时代三种核心能力</h3>
-        <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '2rem' }}>这三种能力，AI 无法替代你</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          {abilities.map((a, i) => (
-            <div key={i} className="ra-card"
-                 style={{ display: 'flex', gap: '2rem', padding: '2rem', alignItems: 'flex-start' }}>
-              <div style={{ width: 50, height: 50, background: 'rgba(201,162,39,0.1)',
-                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                             color: '#C9A227', flexShrink: 0 }}>{a.icon}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem',
-                               marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                  <h4 style={{ fontSize: '1.05rem', color: '#2D2416', fontWeight: 500 }}>{a.title}</h4>
-                  <span style={{ fontSize: '0.7rem', color: '#C9A227', letterSpacing: '0.1em' }}>{a.en}</span>
-                  <span className="ra-tag" style={{ marginLeft: 'auto', fontSize: '0.65rem' }}>{a.tag}</span>
+        {/* CHAPTER 7 · 杠杆思维与陌生人交易 */}
+        <div id="ch7-leverage" style={{ scrollMarginTop: '40px', marginTop: '4rem' }}>
+          <ChapterIntro num="七" en="SEVEN" title="杠杆思维与陌生人交易"
+                        lead='"你在县城洗碗 3000，杭州 7000，日本 2 万，美国 5 万——为什么？"' />
+
+          <SubH id="ch7-network">服务社会网络的价格</SubH>
+          <Para>
+            同样是洗碗这个动作。在县城你赚 3000，在杭州你赚 7000，在日本你赚 2 万，在美国你赚 5 万。
+            <strong style={{color:'#C9A227'}}>差别不在动作本身，在你服务的社会网络的价值。</strong>
+          </Para>
+          <Para>
+            县城里最高工资可能也就一万出头；杭州里你可能不小心服务的就是某个 AI 公司的合伙人，
+            他创造的价值是十亿百亿级的。你的"洗碗"在不同网络里被定价不同——
+            因为这个网络里的人在产出多大的价值，你就分走多大价值的一小部分。
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              你服务<strong>越贵的社会网络</strong>，<br/>
+              你的价格就越贵。<br/>
+              这就是为什么很多人讨厌"找贵人"这个词——<br/>
+              但客观来说就是这么回事。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论社会网络
+            </p>
+          </div>
+
+          <SubH id="ch7-leverage-types">杠杆是什么 · 五代杠杆</SubH>
+          <Para>这就引出了杠杆的本质——<strong style={{color:'#C9A227'}}>用一份注意力影响更多人</strong>。</Para>
+          <div style={{ marginBottom: '1.5rem' }}>
+            {[
+              { n:'1', age:'蒸汽机', what:'外包了人的体力', mult:'世界快了 10 倍' },
+              { n:'2', age:'电气时代', what:'外包了信息传递', mult:'公司从几百人扩到几千人' },
+              { n:'3', age:'信息时代', what:'外包了即时通讯', mult:'亚马逊 200 万员工属于一个人' },
+              { n:'4', age:'IP 时代', what:'外包了"在场"', mult:'全国的人都能在直播间听你' },
+              { n:'5', age:'AI 时代', what:'外包了"智能"', mult:'一个人指挥 10 个 agent 干 10 个人的活' },
+            ].map(s => (
+              <div key={s.n}
+                    style={{ display: 'flex', alignItems: 'baseline', gap: '1rem',
+                              padding: '0.8rem 0',
+                              borderBottom: '1px solid rgba(45,36,22,0.06)' }}>
+                <span style={{ color: '#C9A227', fontFamily: "'Playfair Display',serif",
+                                fontSize: '0.85rem', letterSpacing: '0.2em',
+                                fontWeight: 600, minWidth: 28 }}>
+                  0{s.n}
+                </span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem',
+                                  flexWrap: 'wrap' }}>
+                    <span style={{ color: '#2D2416', fontSize: '1rem', fontWeight: 500 }}>{s.age}</span>
+                    <span style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.88rem' }}>
+                      {s.what}
+                    </span>
+                  </div>
+                  <p style={{ color: '#8B6914', fontSize: '0.78rem',
+                                fontStyle: 'italic', marginTop: '0.2rem' }}>
+                    → {s.mult}
+                  </p>
                 </div>
-                <p style={{ color: 'rgba(45,36,22,0.65)', fontSize: '0.9rem', lineHeight: 1.9 }}>{a.desc}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              你今天如果不使用杠杆，<br/>
+              你就是一个劳力赚<strong>一份钱</strong>。<br/>
+              如果你使用杠杆，你就有机会赚<br/>
+              <strong style={{color:'#C9A227', fontStyle:'normal'}}>一万份钱、十万份钱</strong>。
+            </p>
+          </div>
+
+          <SubH id="ch7-strangers">陌生人比熟人贵</SubH>
+          <Para>
+            但杠杆要起效，前提是你不怕陌生人。这是大部分人卡住的地方。你不敢发朋友圈，不敢发短视频——
+            本质都是<strong style={{color:'#c0392b'}}>恐惧陌生人怎么看你</strong>。但树林反向给了一个判断：
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              跟你们太熟<strong>不是好事</strong>，<br/>
+              因为熟人就<strong>不好卖</strong>了。<br/>
+              你能让你最好的兄弟<br/>给你花 2000 块钱吗？<br/>
+              很难。熟人会伤害你们之间的感情。<br/>
+              陌生人你们的关系就<strong>很纯粹</strong>——<br/>
+              只有交易，1V1，买卖就买卖。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论陌生人
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            真正赚钱的关系往往不是熟人。熟人之间所有的钱都裹在情感里、人情里、不好意思里——不好变现。
+            陌生人之间是最简洁的："我提供什么、你付多少钱"。
+            <strong style={{color:'#C9A227'}}>朋友是用来共度的，陌生人才是用来共事的。</strong>
+          </Para>
+
+          <SubH>黑粉是最贵的注意力</SubH>
+          <Para>
+            更反直觉的是——树林说他爱黑粉。不是反讽。<strong>黑粉是最持续看你的人</strong>。
+            粉丝看一段时间会走，黑粉每天都在看。他们投入到你身上的注意力总量，远远超过普通粉丝。
+            而且黑粉一旦松动，他的反向能量会非常巨大——
+            <strong style={{color:'#C9A227'}}>"嘴上骂你的人，心里全都是你。"</strong>
+          </Para>
+
+          <ChapterClose>
+            赚钱的两条腿：<span style={{color:'#C9A227'}}>杠杆 + 陌生人</span>。<br/>
+            没有杠杆你只是劳力；恐惧陌生人，杠杆就拉不起来。
+          </ChapterClose>
         </div>
 
-        <div className="ra-bigquote">
-          <p className="ra-bigquote-text">
-            AI 给你的不是<strong>最终成品</strong>，<br />
-            而是可以被你<strong>加工的材料</strong>。
-          </p>
-          <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
-                       letterSpacing: '0.2em', marginTop: '1.5rem',
-                       fontStyle: 'italic' }}>
-            — 元提问决定能挖到什么 · 品位决定能留下什么 · 封装决定它能不能变成资产
-          </p>
+        {/* CHAPTER 8 · 营销不邪恶 */}
+        <div id="ch8-marketing" style={{ scrollMarginTop: '40px', marginTop: '4rem' }}>
+          <ChapterIntro num="八" en="EIGHT" title="营销不邪恶"
+                        lead='"你不讨厌营销，你讨厌过度营销 + 垃圾产品。"' />
+
+          <SubH>营销是什么</SubH>
+          <Para>
+            "营销"在大部分人的语境里是一个贬义词。这一章树林做了一件简单但少有人做的事——
+            <strong>把"营销"这个词从道德判断里拎出来，还它一个中性的位置。</strong>
+          </Para>
+          <Para>
+            营销不是骗人。<strong style={{color:'#C9A227'}}>营销是让有需要的人知道有这个东西。</strong>
+            你出门买一桶油、一瓶水，别人卖给你你不会觉得难受——因为你需要。
+            难受的是别人硬塞给你你不需要的东西，且这个东西非常垃圾。
+            真正讨厌的不是"营销"，是<strong style={{color:'#c0392b'}}>过度营销 + 垃圾产品</strong>。
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              如果你对营销恐惧、讨厌、反感——<br/>
+              你就对<strong>叫卖</strong>恐惧。<br/>
+              这个时代是一个<strong>每天都在叫卖的时代</strong>。<br/>
+              事实上你只是<strong style={{color:'#C9A227', fontStyle:'normal'}}>不允许自己活在这个时代</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论营销中性化
+            </p>
+          </div>
+
+          <SubH id="ch8-cantsell">你为什么不敢卖</SubH>
+          <Para>
+            大部分人卖不出去东西，<strong>根因不是营销技巧，是他觉得"卖"这件事冒犯了别人</strong>。
+            这种"觉得冒犯"的内心戏会反复上演：我要不要发？发了别人会怎么看？会不会觉得我功利？
+            我想了一小时，最后没发——这一小时就这么没了。
+          </Para>
+          <Para>树林的判断很狠：</Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              当你觉得卖是一件很恶心的事情的时候，<br/>
+              你会进入一种<strong>语言的想象</strong>——<br/>
+              我冒犯了他们，他们会反感我。<br/>
+              然后你不停的想，最后说算了，还是不卖了。<br/>
+              这一刻，你<strong style={{color:'#C9A227', fontStyle:'normal'}}>高酮不够，攻击性不够</strong>，<br/>
+              你就没有办法走出那一步。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论不敢卖
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            所以"不敢卖"在树林这里又被翻译成了一个物理问题——睾酮不足、攻击性不足。
+            <strong style={{color:'#C9A227'}}>解药还是那两个字：深蹲、跑步。</strong>
+          </Para>
+
+          <SubH>卖课是提供确定性</SubH>
+          <Para>这一章里树林最坦诚的一段，是他自己解释为什么要卖课：</Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              今天为什么你们买了我的课？<br/>
+              就是我来给你<strong>提供确定性</strong>。<br/>
+              我说你们进了这个群，关于 AI 的信息<br/>
+              就<strong>不用再 FOMO 了</strong>，以我为准。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论卖课的本质
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            这是一个非常重要的视角——<strong style={{color:'#C9A227'}}>课程的本质是把不确定性打包成确定性</strong>。
+            一个人花几千块买一个课，他买的不是知识本身（知识网上都有），他买的是"我不用再 FOMO 了"——
+            一种被锚定的确定感。
+          </Para>
+
+          <ChapterClose>
+            你不讨厌营销，你只是没把它和"过度营销 + 垃圾产品"分开。<br/>
+            <span style={{color:'#C9A227'}}>敢卖，是攻击性的物理表现。</span>
+          </ChapterClose>
         </div>
 
         <ActionCard
           id="ch03"
-          title="打开 AI 前的三问"
+          title="本周 / 本月「敢卖」一次"
           prompts={[
-            '下一次打开 AI 之前，先在这里挑或写下三件事：',
-            '我带着什么原问题进去 · 我准备判断什么值得留下 · 这次要封装成什么。',
+            '不敢卖、不敢发、不敢报价——本质是攻击性不够。',
+            '挑一件你今天 / 本周 / 本月就能"卖"出去的东西。',
           ]}
-          chipsLabel="选一类你最常用 AI 做的事（可多选）"
+          chipsLabel="敢卖的最小动作（可多选）"
           chips={[
-            '打穿一个观点',
-            '梳理一篇长文',
-            '拆一个产品方案',
-            '写一份提案',
-            '理一段关系',
-            '复盘一次失败',
-            '搭一个学习路径',
-            '研究一个领域',
-            '做一次决策推演',
-            '写一段代码',
+            '在朋友圈发一次自我推荐',
+            '把作品定个价发出去',
+            '主动报一次咨询',
+            '把产品挂上链接',
+            '群发一次小广告',
+            '主动开个价',
+            '给自己加薪谈一次',
+            '面对陌生人卖一次',
+            '把封装好的东西发出去',
+            '不删 · 不修 · 直接发',
           ]}
-          placeholder="或者写下：我下次想带进 AI 的具体原问题是……"
+          placeholder="或者写下你这次准备卖的东西……"
         />
 
         <ChapterNav current="ch03" onNav={onNav} />
@@ -2997,161 +3514,421 @@ const Ch03Page = ({ onNav }) => {
   );
 };
 
-// ── Chapter 04 ───────────────────────────────────────────────────────────────
+// ── Part IV · 终篇 · AI 时代与心力 ────────────────────────────────────────────
 const Ch04Page = ({ onNav }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  const workflow = [
-    { step: '01', title: '元提问', color: '#C9A227',
-      desc: '不要急着问"帮我写一篇文章"。先找到那个最值得被打穿的原问题——它来自一句真正打动你的话，或者你早就知道但一直没真正做到的道理。',
-      example: '❌ "帮我总结这场直播"\n✅ "一个道理到底怎样才会真正变成你的人生？"\n\n元提问决定了这一次对话的深度。从哪里下铲，决定能挖到什么。' },
-    { step: '02', title: '六轮追问', color: '#B8860B',
-      desc: '一轮回答只是表面铺开。围绕同一个原问题追问 3-5 轮甚至更多，从不同方向重复理解同一个观点。',
-      example: '第 1 轮：你怎么看这句话？           → 先拿到基础理解\n第 2 轮：说得更深一点、本质一点      → 往底层挖\n第 3 轮：高手会怎么看？               → 提高视角\n第 4 轮：反面观点是什么？             → 避免单向理解\n第 5 轮：有没有极端案例？             → 把问题推到边界\n第 6 轮：怎么变成行动、文章或产品？   → 落到输出与执行' },
-    { step: '03', title: '工具分工', color: '#8B6914',
-      desc: '不同 AI 进入不同工序。但工具可以分工，主编只能是你——AI 不能替你决定什么最重要、什么该删、什么值得放大。',
-      example: 'GPT     → 结构师：拆逻辑、搭框架、找层次\nGemini  → 金句机：提亮点、找锋利表达、压传播句\nClaude  → 文章导师：看语感、顺不顺、像不像人写' },
-    { step: '04', title: '筛选', color: '#6B4F12',
-      desc: '不要把 AI 所有回答都当成宝。AI 给的内容里有些只是看起来正确，有些只是结构完整，有些只是语言顺滑。要先筛一遍。',
-      example: '哪一句最打中？\n哪一段最有结构？\n哪个例子能保留？\n哪个判断有传播力？\n哪些只是"正确废话"？' },
-    { step: '05', title: '重写', color: '#5a4020',
-      desc: '不要复制粘贴。用自己的话重新打一遍——这一步不是为了换表达，而是为了逼自己真正理解。AI 写出来很顺，换成自己的话就会卡住，那个卡住正是你还没消化的地方。',
-      example: '问自己四个问题：\n· 这是我会说的话吗？\n· 这句话我真的理解了吗？\n· 这个表达贴不贴我的语气？\n· 这里有没有我的经验、判断和取舍？' },
-    { step: '06', title: '封装', color: '#4A3A0A',
-      desc: '把重写过的碎片变成一个可被理解、被复用、被传播的东西。封装做得好不好，决定了这次 AI 对话会不会归零。',
-      example: '一段对话    → 一篇文章\n几个判断    → 一张清单\n一个流程    → 工具页\n一套方法    → 提示词模板\n一批材料    → 课程 / 报告 / 产品' },
-    { step: '07', title: '输出', color: '#3a2e0e',
-      desc: '把它带到真实世界里。如果内容永远停在 AI 对话框或自己的文档里，会给人"我已经想明白了"的错觉——但这还不是完整反馈。',
-      example: '发出去 · 给一个真实的人看 · 发布到平台\n\n"发布不是为了证明自己，而是为了校准判断。"' },
-    { step: '08', title: '反馈', color: '#2D2416',
-      desc: '真实读者会不会停下来、看完、收藏、追问，只能在真实世界里发生。没有人点开，本身也是反馈——它不一定好受，但很真实。',
-      example: '检验四件事：\n· 别人能不能看懂？\n· 它有没有真的打中问题？\n· 它能不能引出行动？\n· 它能不能积累信任？' },
-    { step: '09', title: '下一轮迭代', color: '#1a1208',
-      desc: '把反馈带回来，变成下一轮提问的起点。读者反复问的同一个问题，不是麻烦，是在提醒——下一个元提问就藏在这里。',
-      example: '数据低 → 标题和开头没打开\n收藏高 → 这里有工具价值\n反复追问同一处 → 下一个元提问的种子\n\n→ 回到第 01 步：新的元提问' },
-  ];
-  const tools = [
-    { name: 'GPT-4o', role: '结构师', color: '#10a37f',
-      strengths: ['逻辑框架搭建', '信息整合归纳', '提纲拆解', '多角度分析'] },
-    { name: 'Gemini', role: '金句机', color: '#4285f4',
-      strengths: ['语言打磨', '金句提炼', '文风调整', '表达创意'] },
-    { name: 'Claude', role: '文章导师', color: '#CC785C',
-      strengths: ['长文修改润色', '论点深化', '风格一致性', '细节审校'] },
-  ];
-
   return (
-    <section style={{ background: '#F5F2EB', minHeight: '100vh' }}>
-      <div className="ra-chapter-bg"
-           style={{ background: 'linear-gradient(135deg,#F5F2EB 0%,#EDE5D0 100%)',
-                     padding: '6rem 3rem 4rem', position: 'relative' }}>
-        <HeroDecoCh04 />
-        <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.4em', marginBottom: '1.2rem' }}>CHAPTER 04 / 04</p>
-          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(2rem,4vw,3.2rem)',
-                        color: '#2D2416', fontWeight: 400, marginBottom: '1rem', lineHeight: 1.3 }}>AI 使用方法</h2>
-          <p style={{ fontSize: '1.2rem', color: '#8B6914', letterSpacing: '0.05em',
-                       marginBottom: '2rem', fontStyle: 'italic' }}>从元提问到完整闭环</p>
-        </div>
-      </div>
+    <section style={{ background: '#FAF8F3', minHeight: '100vh' }}>
+      <PartHero partNum="肆" partRoman="IV" title="AI 时代与心力"
+                subtitle="智能将平价，护城河是审美与心力"
+                deco={<HeroDecoCh04 />}
+                leadQuote={<>
+                  当智能即将平价，护城河是什么？<br/>
+                  <strong style={{ color: '#2D2416' }}>审美。心力。诚意正心。</strong>
+                  <br/>
+                  以及一个 28 岁的人停更大半年之后想明白的所有事。
+                </>} />
 
-      <div style={{ padding: '4rem 3rem', maxWidth: 900, margin: '0 auto' }}>
-        <h3 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                      fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }} id="ch04-workflow">完整工作流：九步闭环</h3>
-        <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '2rem' }}>
-          元提问 → 多轮追问 → 工具分工 → 筛选 → 重写 → 封装 → 输出 → 反馈 → 下一轮迭代 · 点击每一步展开
-        </p>
+      <div style={{ padding: '4rem 3rem', maxWidth: 800, margin: '0 auto' }}>
 
-        <div className="ra-workflow" style={{ marginBottom: '4rem' }}>
-          {workflow.map((w, i) => (
-            <div key={i} className={`ra-workflow-row ${activeStep === i ? 'active' : ''}`}>
-              <div className="ra-workflow-dot">{w.step}</div>
-              <div style={{ flex: 1 }}>
-                <div onClick={() => setActiveStep(activeStep === i ? -1 : i)}
-                     style={{ display: 'flex', alignItems: 'center', gap: '1rem',
-                                background: activeStep === i ? '#fff' : '#fff',
-                                border: `1px solid ${activeStep === i ? w.color : 'rgba(45,36,22,0.1)'}`,
-                                padding: '1rem 1.4rem', cursor: 'pointer',
-                                transition: 'all 0.3s ease' }}>
-                  <span style={{ flex: 1, fontSize: '1.05rem', color: '#2D2416', fontWeight: 500 }}>
-                    {w.title}
-                  </span>
-                  {activeStep === i
-                    ? <ChevronUp size={14} style={{ color: '#C9A227' }} />
-                    : <ChevronDown size={14} style={{ color: 'rgba(45,36,22,0.3)' }} />}
-                </div>
-                {activeStep === i && (
-                  <div style={{ background: 'rgba(201,162,39,0.03)',
-                                 border: '1px solid rgba(201,162,39,0.15)', borderTop: 'none',
-                                 padding: '1.5rem 1.8rem' }}>
-                    <p style={{ color: 'rgba(45,36,22,0.7)', fontSize: '0.9rem',
-                                 lineHeight: 1.9, marginBottom: '1.2rem' }}>{w.desc}</p>
-                    <div style={{ background: '#2D2416', padding: '1rem 1.4rem', borderLeft: `3px solid ${w.color}` }}>
-                      <p style={{ color: w.color, fontSize: '0.7rem', marginBottom: '0.4rem',
-                                   letterSpacing: '0.2em' }}>EXAMPLE / 示例</p>
-                      <pre style={{ color: 'rgba(250,248,243,0.85)', fontSize: '0.82rem',
-                                      lineHeight: 1.8, fontFamily: 'inherit', whiteSpace: 'pre-wrap', margin: 0 }}>
-                        {w.example}
-                      </pre>
-                    </div>
-                  </div>
-                )}
+        {/* PULL QUOTE 03 · 论 AI 代差 */}
+        <PullQuote num="03" label="论 A I 代 差" attr="树林">
+          我使用 <strong style={{color:'#C9A227', fontStyle:'normal'}}>Claude</strong> 的第一天，<br/>
+          我就觉得——<br/>
+          我得考虑一下我的<strong style={{color:'#C9A227', fontStyle:'normal'}}>能力</strong>，<br/>
+          如果没有了，<br/>
+          该怎么办了。
+        </PullQuote>
+
+        {/* CHAPTER 9 · AI 代差与审美护城河 */}
+        <div id="ch9-ai" style={{ scrollMarginTop: '40px' }}>
+          <ChapterIntro num="九" en="NINE" title="AI 代差与审美护城河"
+                        lead='"100 条枪打 4 亿人。马克沁机枪面前，骑兵冲锋有什么用？"' />
+
+          <SubH>一个顶尖 IP 的投降</SubH>
+          <Para>
+            树林讲他第一次用 Claude 的体验，是这场直播里<strong>最刺人的一段</strong>：
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              我使用 Claude 的第一天<br/>
+              我就觉得——<br/>
+              我得考虑一下我的能力，<br/>
+              如果没有了该怎么办了。<br/><br/>
+              在我跟它聊天的 10 轮对话里面，<br/>
+              至少有 1 到 2 轮我会感觉<br/>
+              <strong>这个人的表达能力比我更强</strong>。<br/>
+              我已经是我这行业里的 1%，<br/>
+              是半个天之骄子。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　第一次用 Claude
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            这种坦诚比"AI 多厉害"的鸡汤狠 100 倍——
+            <strong style={{color:'#2D2416'}}>因为这是一个靠表达吃饭的人，承认机器在他最强的领域已经追上了他。</strong>
+          </Para>
+
+          <SubH id="ch9-replaced">谁会被替代</SubH>
+          <Para>树林给了非常具体的判断。他的公司里：</Para>
+          <div style={{ marginBottom: '1.5rem' }}>
+            {[
+              { date:'2024.03', what:'GPT 出图功能上线第三天，他裁掉了一个美工。' },
+              { date:'2024.07', what:'Gemini 出图（banana）的时候，剩下的设计师跟他说"我感觉我要被取代了"。' },
+              { date:'2025.04', what:'GPT-4 出图能力让最后一个设计师也离职了。' },
+              { date:'已发生', what:'程序员 / 前端、PPT / 文书、初级文案、客服、销售——全部都在被替代的路上。' },
+            ].map((s, i) => (
+              <div key={i}
+                    style={{ display: 'flex', gap: '1rem', padding: '0.9rem 0',
+                              borderBottom: '1px dashed rgba(192,57,43,0.2)',
+                              alignItems: 'flex-start' }}>
+                <span style={{ color: '#c0392b', fontFamily: "'Playfair Display',serif",
+                                fontSize: '0.78rem', fontWeight: 600,
+                                letterSpacing: '0.1em', minWidth: 70 }}>
+                  {s.date}
+                </span>
+                <p style={{ color: 'rgba(45,36,22,0.78)', fontSize: '0.92rem',
+                              lineHeight: 1.85 }}>{s.what}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <Para><strong style={{color:'#c0392b'}}>不是危言耸听。是已经发生。</strong></Para>
+
+          <SubH>不用 AI 就是落后</SubH>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              AI 今天不是给老年人、中年人设计的，<br/>
+              就是给<strong style={{color:'#C9A227', fontStyle:'normal'}}>年轻人</strong>。<br/>
+              但只有很少的年轻人开始非常热情地、<br/>
+              积极地使用 AI。<br/><br/>
+              这是一个<strong>时间差</strong>——<br/>
+              等到每个人都充分跟 AI 聊天了，<br/>
+              这个智能的<strong>信息差就没有了</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论 AI 时间差
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            他建议的最低投入：<strong style={{color:'#C9A227'}}>每月 3000-5000 块花在 AI 上</strong>
+            （不是给他，是充 GPT、Gemini、Claude 的会员，或者只充一个就 Claude）。
+          </Para>
+
+          <SubH id="ch9-taste">审美是最后的护城河</SubH>
+          <Para>那当智能完全平价之后，护城河是什么？树林给的答案是：<strong style={{color:'#C9A227'}}>审美</strong>。</Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              <strong>审美能力</strong>才是这里面最重要的——<br/>
+              对文字的审美，对图片的审美。<br/>
+              本质上这一切就是你<br/>
+              <strong style={{color:'#C9A227', fontStyle:'normal'}}>经常看到美的东西</strong>。<br/><br/>
+              很多人为什么不觉得这个文字好？<br/>
+              因为他<strong>看不出来</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论审美
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            AI 一句话能生成万事万物——文案、产品、图片。但
+            <strong style={{color:'#2D2416'}}>判断这个生成结果是好是坏，需要审美</strong>。
+            审美不是天赋，是长期高密度暴露在好东西里的结果。所以未来的核心能力，可能不是"会用 AI"——大家都会。
+            而是<strong style={{color:'#C9A227'}}>"知道什么是好的"</strong>。
+          </Para>
+
+          <ChapterClose>
+            AI 时代的代差比工业革命更狠。<br/>
+            <span style={{color:'#C9A227'}}>最后留下来的不是会用工具的人，是知道什么是好的人。</span>
+          </ChapterClose>
         </div>
 
-        <h3 style={{ fontSize: '1.1rem', color: '#2D2416', letterSpacing: '0.1em',
-                      fontWeight: 500, marginBottom: '0.5rem', scrollMarginTop: '40px' }} id="ch04-tools">工具分工表</h3>
-        <p style={{ color: 'rgba(45,36,22,0.55)', fontSize: '0.85rem', marginBottom: '2rem' }}>盲目使用一个工具是在浪费它们的个性</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.2rem', marginBottom: '3rem' }}>
-          {tools.map((t, i) => (
-            <div key={i} className="ra-tool-card">
-              <span className="ra-tool-badge" style={{ color: t.color, borderColor: t.color }}>{t.role}</span>
-              <h4 style={{ fontSize: '1.1rem', color: '#2D2416', fontWeight: 600, marginBottom: '1rem' }}>{t.name}</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                {t.strengths.map((s, j) => (
-                  <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                    <CheckCircle size={11} style={{ color: t.color, flexShrink: 0 }} />
-                    <span style={{ fontSize: '0.82rem', color: 'rgba(45,36,22,0.7)' }}>{s}</span>
+        {/* CHAPTER 10 · 八步循环链 */}
+        <div id="ch10-loop" style={{ scrollMarginTop: '40px', marginTop: '4rem' }}>
+          <ChapterIntro num="十" en="TEN" title="世界观→结果：八步循环链"
+                        lead='"你有什么世界观，就有什么思维。然后这个结果反过来塑造你的世界观。"' />
+
+          <SubH id="ch10-eight">八步循环</SubH>
+          <div style={{ background: '#fff', border: '1px solid rgba(201,162,39,0.3)',
+                          padding: '2rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '1.5rem' }}>世界观 → 结果 · 八步循环链</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem',
+                            alignItems: 'center' }}>
+              {['世界观','思维','判断','决定','行动','习惯','结果','社会网络'].map((s, i) => (
+                <React.Fragment key={i}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                    <span style={{ fontFamily: "'Playfair Display',serif",
+                                    fontSize: '0.7rem', color: '#C9A227',
+                                    letterSpacing: '0.2em', minWidth: 28, textAlign: 'right' }}>
+                      0{i+1}
+                    </span>
+                    <span style={{ color: '#2D2416', fontSize: '1.05rem',
+                                    fontWeight: i === 0 || i === 7 ? 600 : 400,
+                                    letterSpacing: '0.05em' }}>
+                      {s}
+                    </span>
                   </div>
-                ))}
-              </div>
+                  {i < 7 && (
+                    <span style={{ color: 'rgba(201,162,39,0.5)', fontSize: '0.7rem' }}>↓</span>
+                  )}
+                </React.Fragment>
+              ))}
+              <span style={{ color: 'rgba(201,162,39,0.6)', fontSize: '0.7rem',
+                              letterSpacing: '0.2em', marginTop: '0.6rem',
+                              fontStyle: 'italic' }}>
+                ↻ 闭环 · 反塑世界观
+              </span>
             </div>
-          ))}
+          </div>
+          <Para>
+            这个链条最可怕的不是它的存在，是<strong style={{color:'#c0392b'}}>它的自我强化</strong>。
+            当你的结果不好——比如你赚不到钱，社交关系比较便宜（接触的人都比你穷）——会发生什么？
+          </Para>
+
+          <SubH>为什么你改不了</SubH>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              当你接触的人都比你菜的时候，<br/>
+              你会对他们不尊重的。<br/>
+              而且你会觉得你<strong>很对</strong>。<br/><br/>
+              但因为你不看那些过得很好的人，<br/>
+              觉得跟这些人没有关系，<br/>
+              所以就<strong style={{color:'#C9A227', fontStyle:'normal'}}>滋长你的傲慢</strong>。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论傲慢的形成
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            傲慢一形成，你就觉得你很对。一旦你觉得你很对，你就错不了。
+            一旦你错不了，你的认知和思维就会固化。固化了，你就会循环你过去的人生经历。
+            <strong style={{color:'#c0392b'}}>这是一个完美的封闭循环。</strong>
+          </Para>
+
+          <SubH id="ch10-entry">入口在哪里</SubH>
+          <Para>
+            那怎么打破循环？树林的回答非常聪明——<strong>不要从最难的环节切入</strong>。
+            "改变世界观"是最难的，因为世界观是被无数次行动结果反塑出来的。
+            但是"改变行动"是最容易的——你今天可以决定深蹲十下、写一篇文章、发一条朋友圈。
+            <strong style={{color:'#C9A227'}}>这些动作不需要你的世界观先变，它们本身就在改变你的世界观。</strong>
+          </Para>
+
+          <SubH id="ch10-stages">认知五阶段</SubH>
+          <div style={{ marginBottom: '1.5rem' }}>
+            {[
+              { n:'01', label:'印象', desc:'模模糊糊有这个东西。' },
+              { n:'02', label:'听过', desc:'听了七八遍，但不能复述。' },
+              { n:'03', label:'了解', desc:'能清晰精准复述，能写 2000 字文章解释。' },
+              { n:'04', label:'知道', desc:'已经做到了。没做到不算"知道"。' },
+              { n:'05', label:'掌握', desc:'人生最差的时候、最想做糟糕决定的时候，也能执行。' },
+              { n:'06', label:'大师', desc:'"我不知道"——永远可以知道得更多。大师必谦虚。' },
+            ].map(s => (
+              <div key={s.n}
+                    style={{ display: 'flex', gap: '1rem', padding: '0.7rem 0',
+                              borderBottom: '1px solid rgba(45,36,22,0.06)',
+                              alignItems: 'baseline' }}>
+                <span style={{ color: '#C9A227', fontFamily: "'Playfair Display',serif",
+                                fontSize: '0.78rem', fontWeight: 600,
+                                letterSpacing: '0.1em', minWidth: 28 }}>
+                  {s.n}
+                </span>
+                <span style={{ color: '#2D2416', fontSize: '1rem', fontWeight: 500,
+                                minWidth: 60 }}>
+                  {s.label}
+                </span>
+                <span style={{ color: 'rgba(45,36,22,0.7)', fontSize: '0.88rem',
+                                lineHeight: 1.7, flex: 1 }}>
+                  {s.desc}
+                </span>
+              </div>
+            ))}
+          </div>
+          <Para>
+            所以"我知道很多道理但过不好这一生"——其实是一个语言陷阱。
+            <strong style={{color:'#C9A227'}}>你不是知道很多道理，你只是有印象。</strong>
+            真正的知道是做到。做到才能反塑你的世界观，世界观变了才能脱离原来的循环。
+          </Para>
+
+          <ChapterClose>
+            八步循环锁死了大多数人。<br/>
+            <span style={{color:'#C9A227'}}>打破它的入口不是"想清楚"，是动起来——动作反塑认知。</span>
+          </ChapterClose>
         </div>
 
-        <div className="ra-bigquote">
-          <p className="ra-bigquote-text">
-            AI 可以帮你<strong>挖深问题</strong>，<br />
-            但<strong>真实世界</strong>才会训练你的判断。
-          </p>
-          <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
-                       letterSpacing: '0.2em', marginTop: '1.5rem',
-                       fontStyle: 'italic' }}>
-            — AI 不能替你完成摩擦
-          </p>
-        </div>
+        {/* CHAPTER 11 · 诚意正心 */}
+        <div id="ch11-confession" style={{ scrollMarginTop: '40px', marginTop: '4rem' }}>
+          <ChapterIntro num="十一" en="ELEVEN" title="诚意正心：树林的回归与告白"
+                        lead='"27 岁的我以为自己快死了。每天 8、9 点睡，下午 3、4 点起。"' />
 
-        <ActionCard
-          id="ch04"
-          title="今天的最低成本版本"
-          prompts={[
-            '不用一开始就跑完整流程。今天只承诺最小版本——',
-            '挑一个你愿意今天就发出去的最小输出。',
-          ]}
-          chipsLabel="今天的最小输出（可多选）"
-          chips={[
-            '写一段 100 字',
-            '发一条朋友圈',
-            '发一篇小红书',
-            '发给一个朋友看',
-            '语音给自己讲一遍',
-            '写进自己的笔记',
-            '做一张截图卡片',
-            '回一个评论',
-            '改一段过去的稿子',
-          ]}
-          placeholder="或者写下：今天我打算这样跑一遍最小闭环……"
-        />
+          <Para>
+            这是整本书最不像"知识"的一章。它是一个 28 岁的人，
+            <strong>在停更大半年之后，第一次把他这半年沉默换来的所有东西——包括他的失败、他的反思、他的羞耻、他的重生
+            ——毫无保留地说出来。</strong>
+          </Para>
+
+          <SubH>我是怎么废掉的</SubH>
+          <Para>树林讲他 2024 年下半年的状态——靠每天 1 万字的产出和 IP 影响力变现的他，突然停下来：</Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              那个时候每天<strong>8、9 点才睡觉</strong>，<br/>
+              早上 8、9 点睡。<br/>
+              下午 3 点、4 点起床，<br/>
+              起来必须要喝两杯咖啡<br/>才能工作两个小时。<br/><br/>
+              凌晨晚上 10 点之后开始 EMO，<br/>
+              刷短视频。<br/>
+              我那时候一个月能 EMO <strong>二十天</strong>。<br/>
+              每天晚上固定到那个时间——<br/>
+              "我是废物，我没有希望了。"
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　自白
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            这一段读完会让人很安静。它戳的不是"任何人都会有低谷"——
+            <strong>而是一个赚到钱、有了影响力、被无数人羡慕的人，照样可能在某个阶段觉得自己废了。</strong>
+            这个戳点是：钱和影响力解决不了能量问题、解决不了存在感问题、解决不了对自己的失望。
+          </Para>
+
+          <SubH>钱不解决一切</SubH>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              那个时候我已经<strong>不配给你们讲道理了</strong>。<br/>
+              我觉得我没有活得很好，<br/>
+              我不开心，<strong>赚到钱了我也不开心</strong>。<br/>
+              我就成为<strong style={{color:'#c0392b', fontStyle:'normal'}}>钱的奴隶</strong>了，<br/>
+              成为<strong style={{color:'#c0392b', fontStyle:'normal'}}>影响力的奴隶</strong>了。<br/><br/>
+              卧槽，太恶心了。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论自我厌恶
+            </p>
+          </div>
+
+          <SubH>解散与清账</SubH>
+          <Para>
+            解散公司这件事，本可以省下一大笔钱。他哥哥跟他说："给你支个招，你可以少赔一点。"树林的回答是：
+          </Para>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              哥，我非常感谢你。<br/>
+              但你知道吗，在我心里，<br/>
+              这公司解散我已经<strong>对不起他们了</strong>。<br/><br/>
+              我现在不开心。<br/>
+              <strong style={{color:'#C9A227', fontStyle:'normal'}}>我冒犯了我自己的灵魂</strong>。<br/>
+              我唯一能做的就是把钱<strong>赔完</strong>。<br/>
+              你如果让我少赔一点，<br/>
+              我内心里会更不安的。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　论解散公司
+            </p>
+          </div>
+          <Para style={{ marginTop: '1.5rem' }}>
+            这一段最戳的不是"诚意正心"四个字——这四个字谁都会写。是
+            <strong>当真的要花一百万、要做对自己更不利的选择时，他真的做了。这是知行合一的具体形态。</strong>
+            同样的事还有：他答应给某个学员的 10 万职业指导，哪怕公司解散、服务无法继续，钱照样给完。"我答应了我就要给。"
+          </Para>
+
+          <SubH>积善之家，必有余庆</SubH>
+          <div style={{ background: 'linear-gradient(135deg, #FAF8F3 0%, #F0EBE0 100%)',
+                          border: '1px solid rgba(201,162,39,0.4)',
+                          padding: '2.5rem 2rem', textAlign: 'center', marginBottom: '1.5rem' }}>
+            <p style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.3em',
+                         marginBottom: '1rem' }}>请置顶</p>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                         color: '#2D2416', fontSize: 'clamp(1.6rem,3vw,2.2rem)',
+                         letterSpacing: '0.4em', fontStyle: 'italic',
+                         lineHeight: 1.6, fontWeight: 400 }}>
+              积　善　之　家<br/>必　有　余　庆
+            </p>
+          </div>
+          <Para>
+            他相信因果。"我现在连很讨厌的人我都不讲他的坏话。如果我要背后骂这个人，我就一定能当面骂他；
+            如果我不敢当面骂，我一定不背后骂。"这是他从这半年沉默里学到的最重要的一件事——
+            <strong style={{color:'#C9A227'}}>万事皆有因果，要有敬畏心。</strong>
+          </Para>
+
+          <SubH>结语 · 嵌入规则，改变规则</SubH>
+          <div className="ra-bigquote">
+            <p className="ra-bigquote-text">
+              要有<strong>叙事</strong>，也要有<strong>结构</strong>。<br/>
+              记住 DMN 网络，<br/>
+              记住嵌入更贵的社会网络，<br/>
+              记住在你能量高的时候去表达。<br/><br/>
+              以世界为准。<br/>
+              我们改变我们自己的思维，<br/>
+              去<strong style={{color:'#C9A227', fontStyle:'normal'}}>嵌入、利用、了解、认识规则</strong>，<br/>
+              最后<strong style={{color:'#C9A227', fontStyle:'normal'}}>改变规则</strong>。<br/><br/>
+              不要在最开始就想改变规则——<br/>
+              没有人会给没有能力和无能的人<br/>出让规则的改变权。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
+                         letterSpacing: '0.2em', marginTop: '1.5rem',
+                         fontStyle: 'italic' }}>
+              — 树林　直播结语
+            </p>
+          </div>
+
+          <SubH>经济舱里的人上人</SubH>
+          <Para>直播的最后，树林放了一首张杰的《经济舱》。歌词里有一句他特别喜欢：</Para>
+          <div style={{ padding: '1.5rem 2rem', background: 'rgba(201,162,39,0.05)',
+                          borderLeft: '3px solid #C9A227', marginBottom: '1.5rem' }}>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                          color: '#2D2416', fontSize: '1.1rem', lineHeight: 1.9,
+                          fontStyle: 'italic' }}>
+              山外山，<br/>
+              虽然我在经济舱，做<strong style={{color:'#C9A227'}}>人上人</strong>。<br/>
+              虽然他在经济舱。
+            </p>
+            <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.75rem',
+                         letterSpacing: '0.2em', marginTop: '0.8rem',
+                         fontStyle: 'italic' }}>
+              — 张杰 · 《经济舱》
+            </p>
+          </div>
+          <Para>
+            他说："改变世界不死，理想不灭，现在随便喊。哪怕一个月前我都不想喊，我觉得好尴尬。
+            但今天我能喊出来了——<strong>这不是叙事，是我对我自己的提醒。</strong>"
+          </Para>
+
+          {/* 全书收束 */}
+          <div style={{ marginTop: '4rem', padding: '2.5rem 2rem',
+                          background: '#140E06', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', right: '-1rem', bottom: '-3rem',
+                           fontFamily: "'Playfair Display',serif",
+                           fontSize: '12rem', color: 'rgba(201,162,39,0.05)',
+                           lineHeight: 1, fontWeight: 700 }}>莽</div>
+            <p style={{ color: 'rgba(201,162,39,0.5)', fontSize: '0.7rem',
+                         letterSpacing: '0.4em', marginBottom: '1.5rem',
+                         position: 'relative', zIndex: 1 }}>
+              全 书 收 束
+            </p>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                         color: '#FAF8F3', fontSize: 'clamp(1.4rem,2.6vw,2rem)',
+                         lineHeight: 1.7, fontStyle: 'italic',
+                         position: 'relative', zIndex: 1, marginBottom: '1.2rem' }}>
+              我没有变。<br/>
+              或者我又回来了。<br/>
+              或者人生兜兜转转——<br/>
+              下一场直播，我会说说<strong style={{color:'#C9A227', fontStyle:'normal'}}>为什么又回来了</strong>。
+            </p>
+          </div>
+        </div>
 
         <ChapterNav current="ch04" onNav={onNav} />
       </div>
@@ -3159,21 +3936,88 @@ const Ch04Page = ({ onNav }) => {
   );
 };
 
+
 // ── Outro ─────────────────────────────────────────────────────────────────────
 const OutroPage = ({ onNav }) => {
-  const principles = [
-    '听过不等于拥有，认同也不等于做到',
-    '知道和做到之间，不是知识的缝隙，而是意志的缝隙',
-    '人生不是由你临时想做什么决定的，而是由你的默认设置决定的',
-    '一个人重复什么，就会默认什么；默认什么，就会活成什么',
-    '普通人的重复是画圈，高手的重复是螺旋',
-    '原则就是你的宪法 · 复利的前提，是不要反复清零',
-    '刷短视频，你是矿；用 AI，你是矿工',
-    'AI 给你的不是最终成品，而是可以被你加工的材料',
-    'AI 可以帮你挖深问题，但真实世界才会训练你的判断',
+  // 60 条原话按 7 主题分组
+  const quoteGroups = [
+    { theme: '关于复利与注意力', color: '#C9A227', quotes: [
+      '你的所有最厉害的东西都在你的脑子里面，世界没有看到，世界就不能给你定价。',
+      '急切就是不复利。',
+      '瘾的本质是不可撤销的注意力。',
+      '我用一份时间换了你们四千份的注意力，那我就会越来越有钱。',
+      '你的复利系数取决于你的注意力产出能被多少人接收、能持续多久。',
+    ]},
+    { theme: '关于劫持与压强', color: '#B8860B', quotes: [
+      '如果从今天开始，我一分钟打你一次——你这辈子还能有什么出息？',
+      '短视频不是 1 分钟打断你一次，是 10 秒打断你一次。',
+      '虐恋三要素：高性吸引 + 高情绪波动 + 高需求感。',
+      '好的爱情会让你打开和开放，坏的爱情让你的思维收缩、行动收缩、情绪收缩。',
+      'P = F / S。注意力的产出 = 注意力总量 ÷ 聚焦面积。',
+      '你做不了高考，那就做语文；做不了语文，那就做开头两句话——这种总能做了吧？',
+      '我快凉了。（论焦虑时身体的反应）',
+      '慢即是快——把同样的注意力压在更小的面积上。',
+    ]},
+    { theme: '关于身体与能量', color: '#8B6914', quotes: [
+      '人的本质是烧炭的机器。',
+      '有钱人就是中基因彩票了——他们的 ATP 先天就比更多人更多。',
+      '性能量不只是性欲——它驱动性欲、探索欲、攻击性、表达欲、食欲。',
+      '血糖一波动，前额叶就下线；前额叶一死，杏仁核就上线。',
+      '饿、性欲、焦虑——这三件事是一体的。',
+      '你不是因为想清楚了才去运动，是因为你运动了才想得清楚。',
+      '60 分以下的人内耗，60 分以上的人外耗，90 分的人疯狂外耗。',
+      '能量低的人是审判席思维，能量高的人是游乐场思维。',
+      '不敢卖东西？兄弟，你需要深蹲。',
+    ]},
+    { theme: '关于 DMN 与深夜 EMO', color: '#6B4F12', quotes: [
+      '晚上的 EMO 是这样：白天能量耗尽，注意力没地方去，DMN 启动开始自我攻击。',
+      '我 DMN 一启动就开始写东西；你 DMN 一启动开始骂自己——4 小时光在骂你自己。',
+      '你多想都没用——只有行动才能阻断。站起来做个深蹲。',
+      '反思自己时不批判自己——这是一个人在自己面前的尊严。',
+    ]},
+    { theme: '关于商业与剥削', color: '#5a4020', quotes: [
+      '资本的四阶段：粮食剩余 → 劳动剩余 → 注意力 → 未来现金流。',
+      '你欠未来的钱，每天都在焦虑怎么还钱——你拿什么翻身？',
+      '洗碗在县城 3000，杭州 7000，日本 2 万，美国 5 万——服务网络决定你的价格。',
+      '你今天如果不使用杠杆，你就是一个劳力赚一份钱。',
+      '跟你们太熟不是好事——熟人就不好卖了。',
+      '嘴上骂你的人，心里全都是你。',
+      '你不讨厌营销，你讨厌的是过度营销 + 垃圾产品。',
+      '课程的本质是把不确定性打包成确定性。',
+    ]},
+    { theme: '关于 AI 时代', color: '#4A3A0A', quotes: [
+      '我使用 Claude 的第一天就觉得，我得考虑一下我的能力如果没有了该怎么办。',
+      'AI 是这个时代的马克沁机枪——100 条枪打 4 亿人。',
+      '2024 年 3 月 GPT 出图第三天我裁掉了一个美工。',
+      'AI 今天不是给老年人、中年人设计的——就是给年轻人。',
+      '等到所有人都用 AI 之后，智能的信息差就没有了。',
+      '未来的核心能力不是会用 AI——是知道什么是好的。审美是最后的护城河。',
+    ]},
+    { theme: '关于世界观与改变', color: '#3a2e0e', quotes: [
+      '世界观→思维→判断→决定→行动→习惯→结果→社会网络→反塑世界观。',
+      '认知五阶段：印象 / 听过 / 了解 / 知道 / 掌握 / 大师。',
+      '所谓"知道"是已经做到了——没做到就不要讲知道。',
+      '你接触比你菜的人，会滋长你的傲慢。傲慢让你认为你很对，对就错不了，错不了就固化。',
+      '"我知道很多道理但过不好这一生"——你不是知道，你只是有印象。',
+      '大师必谦虚——"我不知道"的意思是我永远可以知道得更多。',
+    ]},
+    { theme: '关于心力与告白', color: '#2D2416', quotes: [
+      '27 岁我以为自己快死了——下午 3 点起床，喝两杯咖啡才能工作两小时。',
+      '赚到钱了我也不开心，我就成为钱的奴隶了，成为影响力的奴隶了。',
+      '我冒犯了我自己的灵魂——这个事是我的一意孤行。',
+      '我答应了，我就要给。哪怕服务不用继续，钱照样要赔完。',
+      '积善之家，必有余庆。',
+      '愧疚是最差的情绪——它会剥夺你最后的存在感。',
+      '万事皆有因果，要有敬畏心。',
+      '改变世界不死，理想不灭，现在随便喊。',
+      '不要在最开始就想改变规则——先嵌入规则，了解规则，最后改变规则。',
+      '如果你希望这个世界更好一点，那你就需要成为一个更有能量的人。',
+    ]},
   ];
 
-  // Read user's action card responses from localStorage
+  const totalQuotes = quoteGroups.reduce((s, g) => s + g.quotes.length, 0);
+
+  // 用户在四张行动卡上的痕迹
   const [traces, setTraces] = useState([]);
   useEffect(() => {
     const found = [];
@@ -3192,104 +4036,138 @@ const OutroPage = ({ onNav }) => {
   }, []);
 
   const chapterTitleMap = {
-    ch01: 'Ch01 · 你写下的那句话',
-    ch02: 'Ch02 · 你的重复训练',
-    ch03: 'Ch03 · 打开 AI 前的三问',
-    ch04: 'Ch04 · 今天的最低成本版本',
+    ch01: '上篇 · 你今天的最小动作',
+    ch02: '中篇 · 让你能量上来的那件事',
+    ch03: '下篇 · 你这次敢卖的那件东西',
+    ch04: '终篇 · 你那句最值钱的话',
   };
+
   return (
     <section style={{ minHeight: '100vh', background: '#140E06', color: '#FAF8F3',
                        position: 'relative', overflow: 'hidden' }}>
       {/* Big atmospheric glow */}
       <div style={{ position: 'absolute', inset: 0,
-                     background: 'radial-gradient(ellipse at 50% 30%,rgba(201,162,39,0.12) 0%,transparent 50%)',
+                     background: 'radial-gradient(ellipse at 50% 20%,rgba(201,162,39,0.12) 0%,transparent 50%)',
                      pointerEvents: 'none' }} />
-      {/* Decorative giant character */}
+      {/* Decorative giant glyph */}
       <div style={{ position: 'absolute', right: '-3rem', bottom: '-5rem',
-                     fontFamily: "'Playfair Display',serif",
+                     fontFamily: "'Playfair Display','Noto Serif SC',serif",
                      fontSize: 'clamp(20rem,40vw,40rem)',
                      color: 'rgba(201,162,39,0.04)', lineHeight: 1, fontWeight: 700,
                      pointerEvents: 'none', userSelect: 'none' }}>
-        重
+        莽
       </div>
 
       <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1,
-                     padding: '8rem 3rem 6rem' }}>
+                     padding: '6rem 3rem 6rem' }}>
+
         {/* Hero */}
-        <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
           <p style={{ color: 'rgba(201,162,39,0.5)', fontSize: '0.7rem',
                        letterSpacing: '0.5em', marginBottom: '2rem' }}>
-            — FINALE —
+            — APPENDIX · 附录 —
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display',serif",
-                        fontSize: 'clamp(2.5rem,7vw,5rem)', color: '#FAF8F3',
-                        fontWeight: 400, marginBottom: '1.5rem', lineHeight: 1.2 }}>
-            把它重复到身体里
+          <h2 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                        fontSize: 'clamp(2.2rem,5vw,3.6rem)', color: '#FAF8F3',
+                        fontWeight: 400, marginBottom: '1rem', lineHeight: 1.3 }}>
+            金句索引 · 后记
           </h2>
-          <p style={{ color: 'rgba(201,162,39,0.7)', fontSize: 'clamp(1rem,1.6vw,1.2rem)',
+          <p style={{ color: 'rgba(201,162,39,0.7)', fontSize: 'clamp(0.95rem,1.5vw,1.1rem)',
                        letterSpacing: '0.15em', fontStyle: 'italic' }}>
-            直到它成为你的气质
+            {totalQuotes} 条原话 · 8 个主题 · 给那些只想翻金句的人
           </p>
         </div>
 
-        {/* Core sentence — MASSIVE typography */}
+        {/* THE CORE SENTENCE */}
         <div style={{ borderTop: '1px solid rgba(201,162,39,0.2)',
                        borderBottom: '1px solid rgba(201,162,39,0.2)',
-                       padding: '5rem 0', marginBottom: '6rem', textAlign: 'center' }}>
+                       padding: '4rem 0', marginBottom: '5rem', textAlign: 'center' }}>
           <p style={{ color: 'rgba(250,248,243,0.4)', fontSize: '0.7rem',
                        letterSpacing: '0.4em', marginBottom: '2.5rem' }}>
             THE CORE SENTENCE
           </p>
           <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
-                       color: '#FAF8F3', fontSize: 'clamp(1.6rem,4vw,3rem)',
-                       lineHeight: 1.6, fontWeight: 400, marginBottom: '0.5rem' }}>
-            把一个道理重复到身体里，
+                       color: '#FAF8F3', fontSize: 'clamp(1.4rem,3.2vw,2.4rem)',
+                       lineHeight: 1.7, fontWeight: 400, marginBottom: '0.6rem' }}>
+            如果你希望这个世界
           </p>
           <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
-                       color: '#C9A227', fontSize: 'clamp(1.6rem,4vw,3rem)',
-                       lineHeight: 1.6, fontWeight: 400, fontStyle: 'italic' }}>
-            它才会变成你的人生。
+                       color: '#FAF8F3', fontSize: 'clamp(1.4rem,3.2vw,2.4rem)',
+                       lineHeight: 1.7, fontWeight: 400, marginBottom: '0.6rem' }}>
+            <strong style={{color:'#C9A227'}}>更好一点、更美一点</strong>，
+          </p>
+          <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                       color: '#FAF8F3', fontSize: 'clamp(1.4rem,3.2vw,2.4rem)',
+                       lineHeight: 1.7, fontWeight: 400, marginBottom: '0.6rem' }}>
+            那你就需要成为
+          </p>
+          <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                       color: '#C9A227', fontSize: 'clamp(1.4rem,3.2vw,2.4rem)',
+                       lineHeight: 1.7, fontWeight: 400, fontStyle: 'italic' }}>
+            一个更有能量的人。
           </p>
         </div>
 
-        {/* Principles list */}
+        {/* QUOTE INDEX — grouped by theme */}
         <div style={{ marginBottom: '5rem' }}>
           <p style={{ color: 'rgba(201,162,39,0.5)', fontSize: '0.7rem',
                        letterSpacing: '0.4em', marginBottom: '2rem', textAlign: 'center' }}>
-            NINE PRINCIPLES TO REPEAT
+            QUOTE INDEX · 60 条原话
           </p>
-          {principles.map((p, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem',
-                                    padding: '1.2rem 0', borderBottom: '1px solid rgba(201,162,39,0.08)' }}>
-              <span style={{ color: '#C9A227', fontSize: '0.7rem', letterSpacing: '0.2em',
-                               marginTop: '0.3rem', flexShrink: 0,
-                               fontFamily: "'Playfair Display',serif", fontWeight: 600 }}>
-                {String(i+1).padStart(2,'0')}
-              </span>
-              <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '1rem',
-                           lineHeight: 1.9, flex: 1 }}>{p}</p>
+          {quoteGroups.map((group, gi) => (
+            <div key={gi} style={{ marginBottom: '3rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem',
+                              marginBottom: '1.5rem' }}>
+                <span style={{ display: 'inline-block', width: '8px', height: '8px',
+                                background: '#C9A227', borderRadius: '50%',
+                                boxShadow: '0 0 8px rgba(201,162,39,0.6)' }} />
+                <h3 style={{ color: '#C9A227', fontSize: '0.95rem',
+                              letterSpacing: '0.2em', fontWeight: 500 }}>
+                  ❶ · {group.theme}
+                </h3>
+                <span style={{ color: 'rgba(201,162,39,0.4)', fontSize: '0.7rem',
+                                letterSpacing: '0.15em', marginLeft: 'auto' }}>
+                  {group.quotes.length} 条
+                </span>
+              </div>
+              {group.quotes.map((q, qi) => (
+                <div key={qi}
+                      style={{ display: 'flex', gap: '1rem', padding: '0.8rem 0',
+                                borderBottom: '1px solid rgba(201,162,39,0.06)',
+                                alignItems: 'flex-start' }}>
+                  <span style={{ color: 'rgba(201,162,39,0.4)', fontSize: '0.7rem',
+                                  fontFamily: "'Playfair Display',serif",
+                                  marginTop: '0.3rem', flexShrink: 0, minWidth: 28 }}>
+                    /
+                  </span>
+                  <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                                lineHeight: 1.9, flex: 1 }}>
+                    {q}
+                  </p>
+                </div>
+              ))}
             </div>
           ))}
         </div>
 
-        {/* Your traces — what you wrote in the action cards */}
+        {/* YOUR TRACES */}
         <div style={{ marginBottom: '5rem', padding: '3rem 2rem',
                        border: '1px solid rgba(201,162,39,0.2)',
                        background: 'rgba(201,162,39,0.03)' }}>
           <p style={{ color: 'rgba(201,162,39,0.6)', fontSize: '0.7rem',
                        letterSpacing: '0.4em', marginBottom: '0.5rem', textAlign: 'center' }}>
-            YOUR TRACES
+            YOUR TRACES · 你的痕迹
           </p>
           <h3 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
-                        fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', textAlign: 'center',
+                        fontSize: 'clamp(1.3rem, 2.5vw, 1.7rem)', textAlign: 'center',
                         color: '#FAF8F3', fontWeight: 400, marginBottom: '0.5rem' }}>
-            你在这本手册里留下的痕迹
+            你在这本书里写下的东西
           </h3>
           <p style={{ textAlign: 'center', color: 'rgba(250,248,243,0.5)',
                        fontSize: '0.85rem', marginBottom: '2.5rem',
                        fontStyle: 'italic' }}>
             一段关系过去了、一个项目失败了、一次对话结束了——<br />
-            真正可惜的，不是事情结束，而是结束以后什么都没有留下。
+            真正可惜的，是结束以后什么都没有留下。
           </p>
 
           {traces.length === 0 ? (
@@ -3297,13 +4175,13 @@ const OutroPage = ({ onNav }) => {
               <p style={{ color: 'rgba(250,248,243,0.4)', fontSize: '0.9rem',
                            lineHeight: 1.9, marginBottom: '1.5rem' }}>
                 你还没有在任何一张行动卡上写下东西。<br />
-                这本手册的真正价值，发生在你动手写下来的瞬间。
+                这本书的真正价值，发生在你动手写下来的瞬间。
               </p>
               <button onClick={() => onNav('ch01')}
                       style={{ background: 'transparent', border: '1px solid rgba(201,162,39,0.5)',
                                 color: '#C9A227', padding: '0.7rem 2rem', cursor: 'pointer',
                                 fontFamily: 'inherit', fontSize: '0.85rem', letterSpacing: '0.2em' }}>
-                回到 Ch01 写下第一句
+                回到上篇 · 写下第一件最小动作
               </button>
             </div>
           ) : (
@@ -3339,9 +4217,70 @@ const OutroPage = ({ onNav }) => {
 
         <CommitmentCard />
 
-        {/* Restart button — 重复 themed */}
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <button onClick={() => onNav('directory')}
+        {/* EDITOR'S POSTSCRIPT */}
+        <div style={{ marginTop: '5rem', padding: '3rem 2rem',
+                        borderTop: '1px solid rgba(201,162,39,0.2)' }}>
+          <p style={{ color: 'rgba(201,162,39,0.5)', fontSize: '0.7rem',
+                       letterSpacing: '0.4em', marginBottom: '1.5rem', textAlign: 'center' }}>
+            EDITOR'S POSTSCRIPT · 编 者 后 记
+          </p>
+          <h3 style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                        fontSize: 'clamp(1.3rem,2.4vw,1.6rem)', textAlign: 'center',
+                        color: '#FAF8F3', fontWeight: 400, marginBottom: '2.5rem' }}>
+            关于这场直播，<br/>我最想留给你的一句话。
+          </h3>
+          <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                       lineHeight: 2, marginBottom: '1.4rem' }}>
+            整理这份文档大约花了一整天的时间。22 万字逐字稿读了三遍，
+            一遍找主线，一遍找戳人时刻，一遍找原话精华。
+          </p>
+          <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                       lineHeight: 2, marginBottom: '1.4rem' }}>
+            整理完之后我想说一件事——这场直播的真正价值，不是它讲了多少"对的道理"。讲对的道理的人很多。
+            它的价值在于：<strong style={{color:'#C9A227'}}>这是一个曾经赚到钱、有过影响力、被无数人羡慕的 28 岁的人，
+            停下来沉默了大半年，然后回来对所有人说"我前面那一段做错了"的告白。</strong>
+          </p>
+          <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                       lineHeight: 2, marginBottom: '1.4rem' }}>
+            这种告白本身比任何理论都珍贵。因为它意味着一个人愿意在自己已经"成功"的前提下，
+            承认自己失败、承认自己迷茫、承认自己变成了自己讨厌的样子——并且决定重新开始。
+          </p>
+          <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                       lineHeight: 2, marginBottom: '2.5rem' }}>
+            所以如果你只从这本书里拿走一件事，我希望它不是 P=F/S 公式，也不是 DMN 的运行机制，
+            也不是注意力的三重劫持。<strong>我希望是这一句</strong>——
+          </p>
+          <div style={{ padding: '2rem', background: 'rgba(201,162,39,0.05)',
+                          borderLeft: '3px solid #C9A227', marginBottom: '2rem' }}>
+            <p style={{ fontFamily: "'Playfair Display','Noto Serif SC',serif",
+                         color: '#FAF8F3', fontSize: 'clamp(1.2rem,2.4vw,1.6rem)',
+                         lineHeight: 1.8, fontStyle: 'italic' }}>
+              如果你希望这个世界更好一点、更美一点，<br/>
+              那你就需要成为一个<strong style={{color:'#C9A227', fontStyle:'normal'}}>更有能量的人</strong>。
+            </p>
+          </div>
+          <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                       lineHeight: 2, marginBottom: '1.4rem' }}>
+            这句话之所以重要，是因为它把"改变世界"这种听起来空洞的宏大命题，
+            翻译成了一个极其具体的、可操作的、个人尺度的事情——
+            <strong style={{color:'#C9A227'}}>把你自己的能量先升上来</strong>。
+            所有其他的命题——复利、注意力、心力、心智、商业、AI——都是在为这件事服务的。
+          </p>
+          <p style={{ color: 'rgba(250,248,243,0.78)', fontSize: '0.95rem',
+                       lineHeight: 2, fontStyle: 'italic', textAlign: 'center',
+                       marginTop: '2.5rem' }}>
+            愿这本书的读者，<br/>
+            每一个都能成为更有能量的人。
+          </p>
+          <p style={{ color: 'rgba(250,248,243,0.4)', fontSize: '0.75rem',
+                       letterSpacing: '0.3em', textAlign: 'center', marginTop: '2rem' }}>
+            —— 整 理 者 · 2025
+          </p>
+        </div>
+
+        {/* Restart button */}
+        <div style={{ textAlign: 'center', margin: '4rem 0' }}>
+          <button onClick={() => onNav('preface')}
                   className="ra-btn"
                   style={{ background: 'transparent', border: '1px solid rgba(201,162,39,0.5)',
                             color: '#C9A227', padding: '1rem 3rem',
@@ -3352,7 +4291,7 @@ const OutroPage = ({ onNav }) => {
           </button>
           <p style={{ color: 'rgba(250,248,243,0.3)', fontSize: '0.75rem',
                        letterSpacing: '0.15em', marginTop: '1.5rem', fontStyle: 'italic' }}>
-            重复，是螺旋上升 · 第二次读会有第一次没看见的东西
+            年轻人，就是要莽 · 第二次读会有第一次没看见的东西
           </p>
         </div>
 
@@ -3361,11 +4300,11 @@ const OutroPage = ({ onNav }) => {
                        borderTop: '1px solid rgba(201,162,39,0.1)' }}>
           <p style={{ color: 'rgba(250,248,243,0.25)', fontSize: '0.7rem',
                        letterSpacing: '0.3em', marginBottom: '0.5rem' }}>
-            REPEAT · AI · ENCAPSULATE · NO RESET
+            COMPOUND · ATTENTION · SOUL
           </p>
           <p style={{ color: 'rgba(250,248,243,0.2)', fontSize: '0.65rem',
                        letterSpacing: '0.2em' }}>
-            封装手册 · Vol.001 · MMXXVI
+            HOPER 希望者文库 · Vol.001 · 2025.05.05
           </p>
         </div>
       </div>
@@ -3395,7 +4334,36 @@ export default function App() {
       { id: 'ch2-pressure',  label: '02 · 压强公式' },
       { id: 'ch2-anxiety',   label: '02 · 焦虑与最小动作' },
     ],
-    // ch02-ch04 anchors will be added in next iteration
+    ch02: [
+      { id: 'ch3-burning',    label: '03 · 烧炭的机器' },
+      { id: 'ch3-lottery',    label: '03 · 基因彩票' },
+      { id: 'ch3-bloodsugar', label: '03 · 血糖与前额叶' },
+      { id: 'ch4-androgen',   label: '04 · 高酮与攻击性' },
+      { id: 'ch4-60line',     label: '04 · 60 分这条线' },
+      { id: 'ch4-five',       label: '04 · 五种在线' },
+      { id: 'ch5-dmn',        label: '05 · DMN 默认网络' },
+      { id: 'ch5-block',      label: '05 · 阻断 DMN' },
+    ],
+    ch03: [
+      { id: 'ch6-capital',         label: '06 · 资本演进史' },
+      { id: 'ch6-stages',          label: '06 · 四个阶段' },
+      { id: 'ch7-leverage',        label: '07 · 杠杆思维' },
+      { id: 'ch7-network',         label: '07 · 服务网络' },
+      { id: 'ch7-leverage-types',  label: '07 · 五代杠杆' },
+      { id: 'ch7-strangers',       label: '07 · 陌生人' },
+      { id: 'ch8-marketing',       label: '08 · 营销不邪恶' },
+      { id: 'ch8-cantsell',        label: '08 · 你为什么不敢卖' },
+    ],
+    ch04: [
+      { id: 'ch9-ai',          label: '09 · AI 代差' },
+      { id: 'ch9-replaced',    label: '09 · 谁会被替代' },
+      { id: 'ch9-taste',       label: '09 · 审美护城河' },
+      { id: 'ch10-loop',       label: '10 · 八步循环' },
+      { id: 'ch10-eight',      label: '10 · 循环图' },
+      { id: 'ch10-entry',      label: '10 · 入口在哪' },
+      { id: 'ch10-stages',     label: '10 · 认知五阶段' },
+      { id: 'ch11-confession', label: '11 · 诚意正心' },
+    ],
   };
   const currentAnchors = anchorsByPage[activePage];
 
