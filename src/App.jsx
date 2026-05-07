@@ -2778,15 +2778,15 @@ const Ch02Page = ({ onNav }) => {
             解药不在心理层面，在腿上。
           </Para>
 
-          <SubH id="ch3-fearless">对世界不再忌惮</SubH>
+          <SubH id="ch3-fearless">来干这个世界</SubH>
           <div className="ra-bigquote">
             <p className="ra-bigquote-text">
-              睾酮一上来，<br/>
-              你看世界的<strong>姿态就反过来了</strong>——<br/>
-              不是世界压着你，<br/>
-              是你<strong style={{color:'#C9A227', fontStyle:'normal'}}>正面迎上去</strong>。<br/>
-              <strong>一点都不怕</strong>，<br/>
-              你只想说一句"<strong style={{color:'#C9A227', fontStyle:'normal'}}>你有本事就来</strong>"。
+              睾酮一增加，<br/>
+              你对这个世界就是<strong style={{color:'#C9A227', fontStyle:'normal'}}>来干我</strong>。<br/>
+              世界都在干，<br/>
+              我疯狂干、欢迎来干。<br/>
+              你这个世界<strong>一点都不怕</strong>，<br/>
+              你说他妈有本事就来。
             </p>
             <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
                          letterSpacing: '0.2em', marginTop: '1.5rem',
@@ -3015,11 +3015,11 @@ const Ch03Page = ({ onNav }) => {
           </Para>
           <div className="ra-bigquote">
             <p className="ra-bigquote-text">
-              你看不到我<strong>长什么样</strong>，<br/>
-              更不要说我的<strong>思想</strong>，<br/>
-              我的思维和情绪怎么运作。<br/>
+              你看不到我的<strong>裸体</strong>，<br/>
+              更不要说看到我的<strong>思想</strong>，<br/>
+              看到我的器官之间是怎么运作的。<br/>
               但你怎么去理解我？<br/>
-              你通过的，是我<strong style={{color:'#C9A227', fontStyle:'normal'}}>输出的 token</strong>。
+              你通过了我<strong style={{color:'#C9A227', fontStyle:'normal'}}>输出的 token</strong>。
             </p>
             <p style={{ color: 'rgba(45,36,22,0.5)', fontSize: '0.8rem',
                          letterSpacing: '0.2em', marginTop: '1.5rem',
@@ -3300,7 +3300,7 @@ const OutroPage = ({ onNav }) => {
       '不敢卖东西？兄弟，你需要深蹲。',
       '不敢发朋友圈？兄弟，你需要深蹲。',
       '女生也要练腿。',
-      '睾酮一上来，你看世界的姿态就反过来——不是世界压着你，是你正面迎上去。',
+      '睾酮一增加，你对这个世界就是来干我。',
       '几千万你不怕，几个亿你不怕，长得好看你也不怕。',
       '不是因为你想清楚了才行动——是因为你身体撑住了，才想得清楚。',
     ]},
@@ -3427,12 +3427,7 @@ const OutroPage = ({ onNav }) => {
                                 boxShadow: '0 0 8px rgba(201,162,39,0.6)' }} />
                 <h3 style={{ color: '#C9A227', fontSize: '0.95rem',
                               letterSpacing: '0.2em', fontWeight: 500 }}>
-                  <span style={{ fontFamily: "'Playfair Display', serif",
-                                  fontStyle: 'italic', opacity: 0.7,
-                                  marginRight: '0.5rem', fontSize: '0.85rem' }}>
-                    {String(gi + 1).padStart(2, '0')}
-                  </span>
-                  · {group.theme}
+                  ❶ · {group.theme}
                 </h3>
                 <span style={{ color: 'rgba(201,162,39,0.4)', fontSize: '0.7rem',
                                 letterSpacing: '0.15em', marginLeft: 'auto' }}>
@@ -3662,7 +3657,7 @@ export default function App() {
     ch02: [
       { id: 'ch3-bloodsugar', label: '03 · 血糖决定情绪' },
       { id: 'ch3-legs',       label: '03 · 练腿与睾酮' },
-      { id: 'ch3-fearless',   label: '03 · 对世界不再忌惮' },
+      { id: 'ch3-fearless',   label: '03 · 来干这个世界' },
       { id: 'ch4-fully',      label: '04 · 充分表达' },
       { id: 'ch4-three',      label: '04 · 频率 × 深度 × 领域' },
       { id: 'ch4-think',      label: '04 · 想是没结果的' },
