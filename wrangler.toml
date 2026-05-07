@@ -1,5 +1,5 @@
-name = "shulin55livestreamv10"
-compatibility_date = "2025-04-30"
+name = "shulin-426-talk"
+compatibility_date = "2026-04-26"
 
 # Static assets (Vite-built SPA)
 [assets]
